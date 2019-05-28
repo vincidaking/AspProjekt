@@ -109,7 +109,7 @@ namespace Apka2.Services
                 LastName = userParam.LastName,
                 Username = userParam.Username,
                 Password = userParam.Password,
-                Role = Role.User
+                Role = RoleNames.User
                 
 
             };
