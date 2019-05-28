@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Apka2.Entities;
 using Apka2.Helpers;
 using Apka2.Model;
 using Apka2.Services;
