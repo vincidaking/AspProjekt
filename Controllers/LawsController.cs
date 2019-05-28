@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Apka2.Model;
 using Apka2.Entities;
+using Apka2.Data;
 
 namespace Apka2.Controllers
 {
