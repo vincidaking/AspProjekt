@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Apka2.Services
 {
-    public interface IUserService
+    public interface IUsersService
     {
         User Authenticate(string username, string password);
         IEnumerable<User> GetAll();
@@ -23,7 +23,7 @@ namespace Apka2.Services
         void Delete(int id);
     }
 
-    public class UserService : IUserService
+    public class UserService : IUsersService
     {
         // users hardcoded for simplicity, store in a db with hashed passwords in production applications
         //private List<User> _users = new List<User>

@@ -16,9 +16,9 @@ namespace Apka2.Controllers
     [Route("[controller]")]
     public class UsersController : ControllerBase
     {
-        private IUserService _userService;
+        private IUsersService _userService;
 
-        public UsersController(IUserService userService)
+        public UsersController(IUsersService userService)
         {
             
 

@@ -66,7 +66,7 @@ namespace Apka2
                 configuration.RootPath = "ClientApp/build";
             });
 
-            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUsersService, UserService>();
             services.AddScoped<ILaw, LawEntity>();
         }
 
