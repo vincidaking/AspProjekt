@@ -14,7 +14,7 @@ using Microsoft.Extensions.Options;
 namespace Apka2.Controllers
 {
     //[Authorize]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class LawController : ControllerBase
     {
@@ -42,6 +42,7 @@ namespace Apka2.Controllers
 
                 var temp = new Law
                 {
+                    Name=law.Name,
                     LawText = law.LawText,
                     DateEnd=law.DateEnd,
                     DateAdd=DateTime.Today
@@ -60,8 +61,6 @@ namespace Apka2.Controllers
         public IActionResult GetAll()
         {
            
-
-
             var laws = _law.GetSavedLaws().ToList();
             return Ok(laws);
         }

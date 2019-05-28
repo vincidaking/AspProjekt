@@ -52,7 +52,7 @@ export class UserPage extends Component {
 
   toggleEditUserModel() {
     this.setState({
-      editUserModal: !this.state.editUserModal
+      editUserModal: false
     });
   }
 
@@ -92,9 +92,10 @@ export class UserPage extends Component {
   }
 
   editUser(id, firstName, lastName, username, password) {
+    if (password == null) password = "";
     this.setState({
       editUserData: { id, firstName, lastName, username, password },
-      editUserModel: !this.state.editUserModal
+      editUserModel: true
     });
   }
 
@@ -234,13 +235,8 @@ export class UserPage extends Component {
             </Button>
           </ModalFooter>
         </Modal>
-        <Modal
-          isOpen={this.state.editUserModal}
-          toggle={this.toggleEditUserModel.bind(this)}
-        >
-          <ModalHeader toggle={this.toggleEditUserModel.bind(this)}>
-            Edytowanie Uzytkownika
-          </ModalHeader>
+        <Modal isOpen={this.state.editUserModel}>
+          <ModalHeader>Edytowanie Uzytkownika</ModalHeader>
           <ModalBody>
             <FormGroup>
               <Label for="firstName">Imie</Label>
@@ -294,7 +290,7 @@ export class UserPage extends Component {
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={this.updateUser.bind(this)}>
-              Edycja
+              Zapisz
             </Button>{" "}
             <Button
               color="secondary"

@@ -10,10 +10,12 @@ namespace Apka2.Model
     {
         [Key]
         public int Id { get; set; }
+        public string Name { get; set; }
+
         public string LawText { get; set; }
-        //[DataType(DataType.Date)]
+        
         public DateTime DateAdd { get; set; }
-        //[DataType(DataType.Date)]
+       
         public DateTime DateEnd { get; set; }
                
     }

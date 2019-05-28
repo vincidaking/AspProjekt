@@ -23,7 +23,7 @@ namespace Apka2.DAL
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+           // throw new NotImplementedException();
         }
 
         public IEnumerable<Law> GetSavedLaws()

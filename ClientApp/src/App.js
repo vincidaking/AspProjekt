@@ -3,7 +3,7 @@ import { Layout } from "./components/Layout";
 import React, { Component } from "react";
 import { LawPage } from "./components/LawPage";
 import { UserPage } from "./components/UserPage";
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter } from "react-router-dom";
 
 export default class App extends Component {
   static displayName = App.name;

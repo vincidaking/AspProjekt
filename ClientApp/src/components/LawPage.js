@@ -71,6 +71,8 @@ export class LawPage extends Component {
             DateEnd: ""
           }
         });
+
+        this._refreshUser();
       });
   }
 
@@ -145,6 +147,7 @@ export class LawPage extends Component {
         </tr>
       );
     });
+
     return (
       <div className="App container">
         <h1>Dodanie Uchwały</h1>
