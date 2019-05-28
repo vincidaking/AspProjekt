@@ -1,4 +1,6 @@
+using Apka2.DAL;
 using Apka2.Helpers;
+using Apka2.Model;
 using Apka2.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -27,6 +29,8 @@ namespace Apka2
 
             services.AddCors();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddDbContext<Context>();
+                
 
             // configure strongly typed settings objects
             var appSettingsSection = Configuration.GetSection("AppSettings");
@@ -62,6 +66,7 @@ namespace Apka2
             });
 
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ILaw, LawEntity>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -95,7 +100,7 @@ namespace Apka2
             app.UseSpa(spa =>
             {
                 spa.Options.SourcePath = "ClientApp";
-
+                
                 if (env.IsDevelopment())
                 {
                     spa.UseReactDevelopmentServer(npmScript: "start");
