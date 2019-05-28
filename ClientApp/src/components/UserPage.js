@@ -12,7 +12,7 @@ import {
   Label
 } from "reactstrap";
 
-class App extends Component {
+export class UserPage extends Component {
   state = {
     users: [],
     newUserData: {
@@ -29,7 +29,7 @@ class App extends Component {
       password: ""
     },
     newUserModal: false,
-    editUserModal: fals
+    editUserModal: false
   };
 
   // componetWillMount() {
@@ -320,4 +320,4 @@ class App extends Component {
     );
   }
 }
-export default App;
+export default UserPage;
