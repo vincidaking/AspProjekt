@@ -28,6 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Apka2.DTOS\Apka2.DTOS.csproj" />
     <ProjectReference Include="..\Apka2.Entites\Apka2.Entites.csproj" />
   </ItemGroup>
 

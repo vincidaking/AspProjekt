@@ -1,8 +1,8 @@
-using Apka2.DAL;
 using Apka2.Data;
-using Apka2.Helpers;
+using Apka2.Data.Users;
 using Apka2.Model;
 using Apka2.Services;
+using Apka2.Services.Users;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -66,8 +66,8 @@ namespace Apka2
                 configuration.RootPath = "ClientApp/build";
             });
 
-            services.AddScoped<IUsersService, UserService>();
-            services.AddScoped<ILaw, LawEntity>();
+            services.AddScoped<IUsersService, UsersService>();
+            services.AddScoped<IUsersRepository, UsersEFCoreRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

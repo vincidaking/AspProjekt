@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Apka2.Data;
 using Apka2.Entities;
-using Apka2.Model;
 
 namespace Apka2.DAL
 {

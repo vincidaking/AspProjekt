@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using Apka2.Data.Users;
+using Apka2.DTOS;
 using Apka2.Entities;
-using Apka2.Helpers;
-using Apka2.Model;
-using Apka2.Services;
+using Apka2.Services.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+
+//TODO ogarnać automappera
+//przerobić ILaw na ILawSErvice i ILawRepository
 
 namespace Apka2.Controllers
 {
@@ -16,49 +18,41 @@ namespace Apka2.Controllers
     [Route("[controller]")]
     public class UsersController : ControllerBase
     {
-        private IUsersService _userService;
+        private readonly IUsersRepository _usersRepository;
+        private readonly IUsersService _userService;
 
-        public UsersController(IUsersService userService)
+        public UsersController(IUsersRepository usersRepository, IUsersService userService)
         {
-            
-
+            _usersRepository = usersRepository;
             _userService = userService;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<ICollection<User>>> GetAll()
+        {
+            var users = await _usersRepository.GetAllAsync();
+            return Ok(users);
         }
 
         [AllowAnonymous]
         [HttpPost("authenticate")]
-        public IActionResult Authenticate([FromBody]User userParam)
+        public async Task<ActionResult<User>> Authenticate([FromBody]User userParam)
         {
-            var user = _userService.Authenticate(userParam.Username, userParam.Password);
-
-            if (user == null)
-                return BadRequest(new { message = "Username or password is incorrect" });
-
-            return Ok(user);
+            var user = await _userService.AuthenticateAsync(userParam.Username, userParam.Password);
+            return user;
         }
 
         [AllowAnonymous]
         [HttpPost("registred")]
-        public void Registred([FromBody]User userParam)
+        public async Task<User> Registred([FromBody]User userParam)
         {
-            if(userParam.Username!=null && userParam.Password!=null)
-            _userService.Register(userParam);
-            else
-                 BadRequest(new { message = "Username or password is empty" });
+            var registeredUser = await _userService.RegisterAsync(userParam);
+            return registeredUser;
 
         }
 
-        //[Authorize(Roles =Role.Admin)]
-        [HttpGet]
-        public IActionResult GetAll()
-        {
-            var users = _userService.GetAll();
-            return Ok(users);
-        }
-
-        //[Authorize(Roles = Role.Admin)]
         [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody]User userParam)
+        public async Task<ActionResult<User>> Update(int id, [FromBody]User userParam)
         {
             // map dto to entity and set id
             var user = userParam;
@@ -67,24 +61,22 @@ namespace Apka2.Controllers
             try
             {
                 // save 
-                _userService.Update(userParam);
-                return Ok();
+                var updatedUser = await _usersRepository.UpdateAsync(userParam);
+                return Ok(updatedUser);
             }
             catch (Exception ex)
             {
                 // return error message if there was an exception
-                return BadRequest(new { message = ex.Message });
+                return BadRequest(ex.Message);
             }
         }
 
-
         //[Authorize(Roles = Role.Admin)]
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            _userService.Delete(id);
+            await _usersRepository.DeleteAsync(id);
             return Ok();
         }
-
     }
 }

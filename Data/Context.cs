@@ -1,16 +1,12 @@
 ﻿using Apka2.Entities;
 using Apka2.Model;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Apka2.Data
 {
     public class Context : DbContext
     {
-        public DbSet<User> User { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<Law> Laws { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
