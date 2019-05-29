@@ -51,9 +51,16 @@ export class UserPage extends Component {
   }
 
   updateUser() {
-    let { firstName, lastName, username, password } = this.state.editUserData;
+    let {
+      id,
+      firstName,
+      lastName,
+      username,
+      password
+    } = this.state.editUserData;
     axios
       .put("http://localhost:57548/users/" + this.state.editUserData.id, {
+        id,
         firstName,
         lastName,
         username,
@@ -111,14 +118,14 @@ export class UserPage extends Component {
                 user.password
               )}
             >
-              Edit
+              Edytuj
             </Button>
             <Button
               color="danger"
               size="sm"
               onClick={this.deleteUser.bind(this, user.id)}
             >
-              Delete
+              Usun
             </Button>
           </td>
         </tr>
@@ -198,7 +205,7 @@ export class UserPage extends Component {
               <th>Imie</th>
               <th>Nazwisko</th>
               <th>Login</th>
-              <th>Actions</th>
+              <th>Akcja</th>
             </tr>
           </thead>
           <tbody>{users}</tbody>

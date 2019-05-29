@@ -52,6 +52,7 @@ export class LawPage extends Component {
 
   toggleEditLawsModel() {
     this.setState({
+      // editLawsModal: false
       editLawsModal: false
     });
   }
@@ -80,9 +81,10 @@ export class LawPage extends Component {
   }
 
   updateLaws() {
-    let { name, lawText, dateAdd, dateEnd } = this.state.editLawsData;
+    let { id, name, lawText, dateAdd, dateEnd } = this.state.editLawsData;
     axios
       .put("http://localhost:57548/api/Laws/" + this.state.editLawsData.id, {
+        id,
         name,
         lawText,
         dateAdd,
@@ -93,9 +95,9 @@ export class LawPage extends Component {
       });
   }
 
-  editLaws(id, name, lawText, dateEnd) {
+  editLaws(id, name, lawText, dateAdd, dateEnd) {
     this.setState({
-      editLawsData: { id, name, lawText, dateEnd },
+      editLawsData: { id, name, lawText, dateAdd, dateEnd },
       editLawsModel: true
     });
   }
@@ -140,14 +142,14 @@ export class LawPage extends Component {
                 law.dateEnd
               )}
             >
-              Edit
+              Edytuj
             </Button>
             <Button
               color="danger"
               size="sm"
               onClick={this.deleteLaw.bind(this, law.id)}
             >
-              Delete
+              Usun
             </Button>
           </td>
         </tr>
@@ -239,14 +241,22 @@ export class LawPage extends Component {
             </Button>
           </ModalFooter>
         </Modal>
-        <Modal
-          isOpen={this.state.editLawsModal}
-          toggle={this.toggleEditLawsModel.bind(this)}
-        >
-          <ModalHeader toggle={this.toggleEditLawsModel.bind(this)}>
-            Edytowanie Uchwały
-          </ModalHeader>
+
+        <Modal isOpen={this.state.editLawsModal}>
+          <ModalHeader>Edytowanie Uchwały</ModalHeader>
           <ModalBody>
+            <FormGroup>
+              <Label for="name">Nazwa</Label>
+              <Input
+                id="name"
+                value={this.state.editLawsData.name}
+                onChange={e => {
+                  let { editLawsData } = this.state;
+                  editLawsData.name = e.target.value;
+                  this.setState({ editLawsData });
+                }}
+              />
+            </FormGroup>
             <FormGroup>
               <Label for="lawText">Tresc</Label>
               <Input
@@ -263,6 +273,7 @@ export class LawPage extends Component {
               <Label for="dateAdd">Data</Label>
               <Input
                 id="dateAdd"
+                type="date"
                 value={this.state.editLawsData.dateAdd}
                 onChange={e => {
                   let { editLawsData } = this.state;
@@ -275,6 +286,7 @@ export class LawPage extends Component {
               <Label for="dateEnd">Data</Label>
               <Input
                 id="dateEnd"
+                type="date"
                 value={this.state.editLawsData.dateEnd}
                 onChange={e => {
                   let { editLawsData } = this.state;
@@ -305,7 +317,7 @@ export class LawPage extends Component {
               <th>Tresc</th>
               <th>Data Dodania</th>
               <th>Data Konca</th>
-              <th>Actions</th>
+              <th>Akcja</th>
             </tr>
           </thead>
           <tbody>{laws}</tbody>
