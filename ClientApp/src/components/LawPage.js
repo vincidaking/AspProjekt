@@ -16,12 +16,14 @@ export class LawPage extends Component {
   state = {
     laws: [],
     newLawsData: {
+      Name: "",
       LawText: "",
       DateAdd: "",
       DateEnd: ""
     },
     editLawsData: {
       id: "",
+      Name: "",
       LawText: "",
       DateAdd: "",
       DateEnd: ""
@@ -50,13 +52,13 @@ export class LawPage extends Component {
 
   toggleEditLawsModel() {
     this.setState({
-      editLawsModal: !this.state.editLawsModal
+      editLawsModal: false
     });
   }
 
   addLaw() {
     axios
-      .post("http://localhost:57548/api/laws/", this.state.newLawsData)
+      .post("http://localhost:57548/api/Laws/", this.state.newLawsData)
       .then(response => {
         let { laws } = this.state;
 
@@ -66,22 +68,24 @@ export class LawPage extends Component {
           laws,
           newLawsModal: false,
           newLawsData: {
+            Name: "",
             LawText: "",
-            DateAdd: "",
+            //DateAdd: "",
             DateEnd: ""
           }
         });
 
-        this._refreshUser();
+        //this._refreshLaw();
       });
   }
 
   updateLaws() {
-    let { LawText, DateAdd, DateEnd } = this.state.editLawsData;
+    let { Name, LawText, DateEnd } = this.state.editLawsData;
     axios
-      .put("http://localhost:57548/api/laws/" + this.state.editLawsData.id, {
+      .put("http://localhost:57548/api/Laws/" + this.state.editLawsData.id, {
+        Name,
         LawText,
-        DateAdd,
+        //DateAdd,
         DateEnd
       })
       .then(response => {
@@ -92,12 +96,12 @@ export class LawPage extends Component {
   editLaws(id, LawText, DateAdd, DateEnd) {
     this.setState({
       editLawsData: { id, LawText, DateAdd, DateEnd },
-      editLawsModel: !this.state.editLawsModal
+      editLawsModel: true
     });
   }
 
   deleteLaw(id) {
-    axios.delete("http://localhost:57548/api/laws/" + id).then(response => {
+    axios.delete("http://localhost:57548/api/Laws/" + id).then(response => {
       this._refreshLaw();
     });
   }
@@ -107,7 +111,7 @@ export class LawPage extends Component {
     //   const laws = res.data;
     //   this.setState({ laws });
     // });
-    axios.get("http://localhost:57548/api/laws/").then(response => {
+    axios.get("http://localhost:57548/api/Laws").then(response => {
       this.setState({
         laws: response.data
       });
@@ -118,6 +122,7 @@ export class LawPage extends Component {
     let laws = this.state.laws.map(law => {
       return (
         <tr key={law.id}>
+          <td>{law.Name}</td>
           <td>{law.LawText}</td>
           <td>{law.DateAdd}</td>
           <td>{law.DateEnd}</td>
@@ -129,6 +134,7 @@ export class LawPage extends Component {
               onClick={this.editLaws.bind(
                 this,
                 law.id,
+                law.Name,
                 law.LawText,
                 law.DateAdd,
                 law.DateEnd
@@ -156,7 +162,7 @@ export class LawPage extends Component {
           color="primary"
           onClick={this.toggleNewLawsModel.bind(this)}
         >
-          Dodanie Uchwały
+          Dodaj
         </Button>
         <Modal
           isOpen={this.state.newLawsModal}
@@ -166,6 +172,19 @@ export class LawPage extends Component {
             Dodanie nowej uchwaly
           </ModalHeader>
           <ModalBody>
+            <FormGroup>
+              <Label for="LawText">Nazwa</Label>
+              <Input
+                id="LawText"
+                placeholder="Podaj Nazwe"
+                value={this.state.newLawsData.Name}
+                onChange={e => {
+                  let { newLawsData } = this.state;
+                  newLawsData.Name = e.target.value;
+                  this.setState({ newLawsData });
+                }}
+              />
+            </FormGroup>
             <FormGroup>
               <Label for="LawText">Tresc</Label>
               <Input
@@ -179,19 +198,7 @@ export class LawPage extends Component {
                 }}
               />
             </FormGroup>
-            <FormGroup>
-              <Label for="DateAdd">Data Dodania</Label>
-              <Input
-                id="DateAdd"
-                placeholder="Podaj Date"
-                value={this.state.newLawsData.DateAdd}
-                onChange={e => {
-                  let { newLawsData } = this.state;
-                  newLawsData.DateAdd = e.target.value;
-                  this.setState({ newLawsData });
-                }}
-              />
-            </FormGroup>
+
             <FormGroup>
               <Label for="DateEnd">Data Konca</Label>
               <Input
@@ -279,6 +286,8 @@ export class LawPage extends Component {
         <Table>
           <thead>
             <tr>
+              <th>Nazwa</th>
+
               <th>Tresc</th>
               <th>Data Dodania</th>
               <th>Data Konca</th>

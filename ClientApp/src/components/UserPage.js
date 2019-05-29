@@ -159,7 +159,7 @@ export class UserPage extends Component {
           color="primary"
           onClick={this.toggleNewUserModel.bind(this)}
         >
-          Dodanie Uzytkownika
+          Dodaj{" "}
         </Button>
         <Modal
           isOpen={this.state.newUserModal}

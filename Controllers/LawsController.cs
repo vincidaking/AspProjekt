@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Apka2.Model;
 using Apka2.Data;
+using System.ComponentModel.DataAnnotations;
+using System;
 
 namespace Apka2.Controllers
 {
@@ -44,37 +46,56 @@ namespace Apka2.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutLaw(int id, Law law)
         {
-            if (id != law.Id)
-            {
-                return BadRequest();
-            }
+            //if (id != law.Id)
+            //{
+            //    return BadRequest();
+            //}
+
+            //_context.Entry(law).State = EntityState.Modified;
+
+            //try
+            //{
+            //    await _context.SaveChangesAsync();
+            //}
+            //catch (DbUpdateConcurrencyException)
+            //{
+            //    if (!LawExists(id))
+            //    {
+            //        return NotFound();
+            //    }
+            //    else
+            //    {
+            //        throw;
+            //    }
+            //}
+
+            //return NoContent();
+
+            var original = await _context.Users.AsNoTracking().SingleOrDefaultAsync(x => x.Id == law.Id);
+            if (original == null)
+                throw new Exception("Nie istnieje ustawa o takim Id");
 
             _context.Entry(law).State = EntityState.Modified;
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!LawExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await _context.SaveChangesAsync();
+            return Ok(law);
 
-            return NoContent();
         }
 
         // POST: api/Laws
         [HttpPost]
         public async Task<ActionResult<Law>> PostLaw(Law law)
         {
-            _context.Laws.Add(law);
+            var temp = new Law
+            {
+                Name = law.Name,
+                LawText = law.LawText,
+                DateAdd = DateTime.Today,
+                DateEnd = law.DateEnd
+            };
+
+
+            _context.Laws.Add(temp);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetLaw", new { id = law.Id }, law);
