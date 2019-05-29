@@ -1,5 +1,5 @@
 ﻿using Apka2.DTOS;
-using Apka2.Entities;
+using Apka2.Model;
 using System.Threading.Tasks;
 
 namespace Apka2.Services.Users

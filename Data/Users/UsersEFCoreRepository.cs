@@ -1,4 +1,4 @@
-﻿using Apka2.Entities;
+﻿using Apka2.Model;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

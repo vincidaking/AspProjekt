@@ -1,4 +1,4 @@
-﻿using Apka2.Entities;
+﻿using Apka2.Model;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

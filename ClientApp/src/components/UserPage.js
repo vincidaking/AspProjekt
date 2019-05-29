@@ -100,7 +100,7 @@ export class UserPage extends Component {
   }
 
   deleteUser(id) {
-    axios.delete("http://localhost:57548/users" + id).then(response => {
+    axios.delete("http://localhost:57548/users/" + id).then(response => {
       this._refreshUser();
     });
   }
