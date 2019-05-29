@@ -88,7 +88,7 @@ namespace Apka2.Controllers
         [HttpPost]
         public async Task<ActionResult<Law>> PostLaw(Law law)
         {
-            +var temp = new Law
+            var temp = new Law
             {
                 Name = law.Name,
                 LawText = law.LawText,

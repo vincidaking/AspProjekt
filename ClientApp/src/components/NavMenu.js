@@ -6,10 +6,14 @@ import {
   NavbarBrand,
   NavbarToggler,
   NavItem,
-  NavLink
+  NavLink,
+  Button
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import "./NavMenu.css";
+import AuthService from "./AuthService";
+import withAuth from "./withAuth";
+const Auth = new AuthService();
 
 export class NavMenu extends Component {
   static displayName = NavMenu.name;
@@ -29,6 +33,11 @@ export class NavMenu extends Component {
     });
   }
 
+  handleLogout() {
+    Auth.logout();
+    this.props.history.replace("/Login");
+  }
+
   render() {
     return (
       <header>
@@ -37,8 +46,8 @@ export class NavMenu extends Component {
           light
         >
           <Container>
-            <NavbarBrand tag={Link} to="/LawPage">
-              Home
+            <NavbarBrand tag={Link} to="/Login">
+              Login
             </NavbarBrand>
             <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
             <Collapse
@@ -62,10 +71,15 @@ export class NavMenu extends Component {
                     Rejestracja
                   </NavLink>
                 </NavItem>
+
                 <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/Login">
-                    Login
-                  </NavLink>
+                  <Button
+                    type="button"
+                    className="form-submit"
+                    onClick={this.handleLogout.bind(this)}
+                  >
+                    Logout
+                  </Button>
                 </NavItem>
               </ul>
             </Collapse>
@@ -75,3 +89,4 @@ export class NavMenu extends Component {
     );
   }
 }
+export default withAuth(NavMenu);

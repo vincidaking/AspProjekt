@@ -14,13 +14,13 @@ export default class App extends Component {
     return (
       <BrowserRouter>
         <Layout>
-          <Route exact path="/" component={UserPage} />
+          <Route exact path="/" component={Login} />
+          <Route exact path="/Login" component={Login} />
 
           <Route path="/LawPage" component={LawPage} />
           <Route path="/UserPage" component={UserPage} />
 
           <Route path="/RegisterPage" component={RegisterPage} />
-          <Route path="/Login" component={Login} />
         </Layout>
       </BrowserRouter>
     );

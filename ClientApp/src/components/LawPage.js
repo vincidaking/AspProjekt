@@ -16,17 +16,17 @@ export class LawPage extends Component {
   state = {
     laws: [],
     newLawsData: {
-      Name: "",
-      LawText: "",
-      DateAdd: "",
-      DateEnd: ""
+      name: "",
+      lawText: "",
+      dateAdd: "",
+      dateEnd: ""
     },
     editLawsData: {
       id: "",
-      Name: "",
-      LawText: "",
-      DateAdd: "",
-      DateEnd: ""
+      name: "",
+      lawText: "",
+      dateAdd: "",
+      dateEnd: ""
     },
     newLawsModal: false,
     editLawsModal: false
@@ -68,10 +68,10 @@ export class LawPage extends Component {
           laws,
           newLawsModal: false,
           newLawsData: {
-            Name: "",
-            LawText: "",
-            DateAdd: "",
-            DateEnd: ""
+            name: "",
+            lawText: "",
+            dateAdd: "",
+            dateEnd: ""
           }
         });
 
@@ -80,22 +80,22 @@ export class LawPage extends Component {
   }
 
   updateLaws() {
-    let { Name, LawText, DateAdd, DateEnd } = this.state.editLawsData;
+    let { name, lawText, dateAdd, dateEnd } = this.state.editLawsData;
     axios
       .put("http://localhost:57548/api/Laws/" + this.state.editLawsData.id, {
-        Name,
-        LawText,
-        DateAdd,
-        DateEnd
+        name,
+        lawText,
+        dateAdd,
+        dateEnd
       })
       .then(response => {
         this._refreshLaw();
       });
   }
 
-  editLaws(id, Name, LawText, DateEnd) {
+  editLaws(id, name, lawText, dateEnd) {
     this.setState({
-      editLawsData: { id, Name, LawText, DateEnd },
+      editLawsData: { id, name, lawText, dateEnd },
       editLawsModel: true
     });
   }
@@ -122,22 +122,22 @@ export class LawPage extends Component {
     let laws = this.state.laws.map(law => {
       return (
         <tr key={law.id}>
-          <td>{law.Name}</td>
-          <td>{law.LawText}</td>
-          <td>{law.DateAdd}</td>
-          <td>{law.DateEnd}</td>
+          <td>{law.name}</td>
+          <td>{law.lawText}</td>
+          <td>{law.dateAdd}</td>
+          <td>{law.dateEnd}</td>
           <td>
             <Button
               color="success"
               size="sm"
-              className="mr-2"
+              classname="mr-2"
               onClick={this.editLaws.bind(
                 this,
                 law.id,
-                law.Name,
-                law.LawText,
-                law.DateAdd,
-                law.DateEnd
+                law.name,
+                law.lawText,
+                law.dateAdd,
+                law.dateEnd
               )}
             >
               Edit
@@ -155,10 +155,10 @@ export class LawPage extends Component {
     });
 
     return (
-      <div className="App container">
+      <div classname="App container">
         <h1>Dodanie Uchwały</h1>
         <Button
-          className="my-3"
+          classname="my-3"
           color="primary"
           onClick={this.toggleNewLawsModel.bind(this)}
         >
@@ -173,53 +173,55 @@ export class LawPage extends Component {
           </ModalHeader>
           <ModalBody>
             <FormGroup>
-              <Label for="Name">Nazwa</Label>
+              <Label for="name">Nazwa</Label>
               <Input
-                id="Name"
+                id="name"
                 placeholder="Podaj Nazwe"
-                value={this.state.newLawsData.Name}
+                value={this.state.newLawsData.name}
                 onChange={e => {
                   let { newLawsData } = this.state;
-                  newLawsData.Name = e.target.value;
+                  newLawsData.name = e.target.value;
                   this.setState({ newLawsData });
                 }}
               />
             </FormGroup>
             <FormGroup>
-              <Label for="LawText">Tresc</Label>
+              <Label for="lawText">Tresc</Label>
               <Input
-                id="LawText"
+                id="lawText"
                 placeholder="Podaj Tresc"
-                value={this.state.newLawsData.LawText}
+                value={this.state.newLawsData.lawText}
                 onChange={e => {
                   let { newLawsData } = this.state;
-                  newLawsData.LawText = e.target.value;
+                  newLawsData.lawText = e.target.value;
                   this.setState({ newLawsData });
                 }}
               />
             </FormGroup>
             <FormGroup>
-              <Label for="DateAdd">Data Dodania</Label>
+              <Label for="dateAdd">Data Dodania</Label>
               <Input
-                id="DateAdd"
+                id="dateAdd"
+                type="date"
                 placeholder="Podaj Date"
-                value={this.state.newLawsData.DateAdd}
+                value={this.state.newLawsData.dateAdd}
                 onChange={e => {
                   let { newLawsData } = this.state;
-                  newLawsData.DateAdd = e.target.value;
+                  newLawsData.dateAdd = e.target.value;
                   this.setState({ newLawsData });
                 }}
               />
             </FormGroup>
             <FormGroup>
-              <Label for="DateEnd">Data Konca</Label>
+              <Label for="dateEnd">Data Konca</Label>
               <Input
-                id="DateEnd"
+                id="dateEnd"
+                type="date"
                 placeholder="Podaj Date"
-                value={this.state.newLawsData.DateEnd}
+                value={this.state.newLawsData.dateEnd}
                 onChange={e => {
                   let { newLawsData } = this.state;
-                  newLawsData.DateEnd = e.target.value;
+                  newLawsData.dateEnd = e.target.value;
                   this.setState({ newLawsData });
                 }}
               />
@@ -246,37 +248,37 @@ export class LawPage extends Component {
           </ModalHeader>
           <ModalBody>
             <FormGroup>
-              <Label for="LawText">Tresc</Label>
+              <Label for="lawText">Tresc</Label>
               <Input
-                id="LawText"
-                value={this.state.editLawsData.LawText}
+                id="lawText"
+                value={this.state.editLawsData.lawText}
                 onChange={e => {
                   let { editLawsData } = this.state;
-                  editLawsData.LawText = e.target.value;
+                  editLawsData.lawText = e.target.value;
                   this.setState({ editLawsData });
                 }}
               />
             </FormGroup>
             <FormGroup>
-              <Label for="DateAdd">Data</Label>
+              <Label for="dateAdd">Data</Label>
               <Input
-                id="DateAdd"
-                value={this.state.editLawsData.DateAdd}
+                id="dateAdd"
+                value={this.state.editLawsData.dateAdd}
                 onChange={e => {
                   let { editLawsData } = this.state;
-                  editLawsData.DateAdd = e.target.value;
+                  editLawsData.dateAdd = e.target.value;
                   this.setState({ editLawsData });
                 }}
               />
             </FormGroup>
             <FormGroup>
-              <Label for="DateEnd">Data</Label>
+              <Label for="dateEnd">Data</Label>
               <Input
-                id="DateEnd"
-                value={this.state.editLawsData.DateEnd}
+                id="dateEnd"
+                value={this.state.editLawsData.dateEnd}
                 onChange={e => {
                   let { editLawsData } = this.state;
-                  editLawsData.DateEnd = e.target.value;
+                  editLawsData.dateEnd = e.target.value;
                   this.setState({ editLawsData });
                 }}
               />

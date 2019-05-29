@@ -1,33 +1,38 @@
 import React, { Component } from "react";
 import "./Login.css";
+import AuthService from "./AuthService";
+import { FormGroup, Input, Label } from "reactstrap";
 
 export class Login extends Component {
   constructor() {
     super();
     this.handleChange = this.handleChange.bind(this);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.Auth = new AuthService();
   }
   render() {
     return (
       <div className="center">
         <div className="card">
-          <h1>Login</h1>
-          <form>
-            <input
+          <FormGroup className="my-3">
+            <Label>Login</Label>
+
+            <Input
               className="form-item"
-              placeholder="Username goes here..."
+              placeholder="Podaj login"
               name="username"
               type="text"
               onChange={this.handleChange}
             />
-            <input
+            <Input
               className="form-item"
-              placeholder="Password goes here..."
+              placeholder="Podaj hasło"
               name="password"
               type="password"
               onChange={this.handleChange}
             />
-            <input className="form-submit" value="SUBMIT" type="submit" />
-          </form>
+            <Input className="form-submit" value="Loguj" type="submit" />
+          </FormGroup>
         </div>
       </div>
     );
@@ -37,6 +42,22 @@ export class Login extends Component {
     this.setState({
       [e.target.name]: e.target.value
     });
+  }
+
+  handleFormSubmit(e) {
+    e.preventDefault();
+
+    this.Auth.login(this.state.username, this.state.password)
+      .then(res => {
+        this.props.history.replace("/UserPage");
+      })
+      .catch(err => {
+        alert(err);
+      });
+  }
+
+  componentWillMount() {
+    if (this.Auth.loggedIn()) this.props.history.replace("/UserPage");
   }
 }
 
