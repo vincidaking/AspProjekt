@@ -70,8 +70,10 @@ namespace Apka2.Controllers
             //}
 
             //return NoContent();
+            if (id != law.Id)
+                return BadRequest("Id muszę być takie same");
 
-            var original = await _context.Users.AsNoTracking().SingleOrDefaultAsync(x => x.Id == law.Id);
+            var original = await _context.Laws.AsNoTracking().SingleOrDefaultAsync(x => x.Id == id);
             if (original == null)
                 throw new Exception("Nie istnieje ustawa o takim Id");
 
@@ -86,7 +88,7 @@ namespace Apka2.Controllers
         [HttpPost]
         public async Task<ActionResult<Law>> PostLaw(Law law)
         {
-            var temp = new Law
+            +var temp = new Law
             {
                 Name = law.Name,
                 LawText = law.LawText,

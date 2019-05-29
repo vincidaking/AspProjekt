@@ -70,7 +70,7 @@ export class LawPage extends Component {
           newLawsData: {
             Name: "",
             LawText: "",
-            //DateAdd: "",
+            DateAdd: "",
             DateEnd: ""
           }
         });
@@ -80,12 +80,12 @@ export class LawPage extends Component {
   }
 
   updateLaws() {
-    let { Name, LawText, DateEnd } = this.state.editLawsData;
+    let { Name, LawText, DateAdd, DateEnd } = this.state.editLawsData;
     axios
       .put("http://localhost:57548/api/Laws/" + this.state.editLawsData.id, {
         Name,
         LawText,
-        //DateAdd,
+        DateAdd,
         DateEnd
       })
       .then(response => {
@@ -93,9 +93,9 @@ export class LawPage extends Component {
       });
   }
 
-  editLaws(id, LawText, DateAdd, DateEnd) {
+  editLaws(id, Name, LawText, DateEnd) {
     this.setState({
-      editLawsData: { id, LawText, DateAdd, DateEnd },
+      editLawsData: { id, Name, LawText, DateEnd },
       editLawsModel: true
     });
   }
@@ -173,9 +173,9 @@ export class LawPage extends Component {
           </ModalHeader>
           <ModalBody>
             <FormGroup>
-              <Label for="LawText">Nazwa</Label>
+              <Label for="Name">Nazwa</Label>
               <Input
-                id="LawText"
+                id="Name"
                 placeholder="Podaj Nazwe"
                 value={this.state.newLawsData.Name}
                 onChange={e => {
@@ -198,7 +198,19 @@ export class LawPage extends Component {
                 }}
               />
             </FormGroup>
-
+            <FormGroup>
+              <Label for="DateAdd">Data Dodania</Label>
+              <Input
+                id="DateAdd"
+                placeholder="Podaj Date"
+                value={this.state.newLawsData.DateAdd}
+                onChange={e => {
+                  let { newLawsData } = this.state;
+                  newLawsData.DateAdd = e.target.value;
+                  this.setState({ newLawsData });
+                }}
+              />
+            </FormGroup>
             <FormGroup>
               <Label for="DateEnd">Data Konca</Label>
               <Input

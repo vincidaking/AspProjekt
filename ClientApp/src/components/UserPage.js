@@ -44,37 +44,10 @@ export class UserPage extends Component {
     this._refreshUser();
   }
 
-  toggleNewUserModel() {
-    this.setState({
-      newUserModal: !this.state.newUserModal
-    });
-  }
-
   toggleEditUserModel() {
     this.setState({
       editUserModal: false
     });
-  }
-
-  addUser() {
-    axios
-      .post("http://localhost:57548/users/registred", this.state.newUserData)
-      .then(response => {
-        let { users } = this.state;
-
-        users.push(response.data);
-
-        this.setState({
-          users,
-          newUserModal: false,
-          newUserData: {
-            firstName: "",
-            lastName: "",
-            username: "",
-            password: ""
-          }
-        });
-      });
   }
 
   updateUser() {
@@ -153,88 +126,6 @@ export class UserPage extends Component {
     });
     return (
       <div className="App container">
-        <h1>Dodanie Uzytkownika</h1>
-        <Button
-          className="my-3"
-          color="primary"
-          onClick={this.toggleNewUserModel.bind(this)}
-        >
-          Dodaj{" "}
-        </Button>
-        <Modal
-          isOpen={this.state.newUserModal}
-          toggle={this.toggleNewUserModel.bind(this)}
-        >
-          <ModalHeader toggle={this.toggleNewUserModel.bind(this)}>
-            Dodanie nowego użytkownika
-          </ModalHeader>
-          <ModalBody>
-            <FormGroup>
-              <Label for="firstName">Imie</Label>
-              <Input
-                id="firstName"
-                placeholder="Podaj Imie"
-                value={this.state.newUserData.firstName}
-                onChange={e => {
-                  let { newUserData } = this.state;
-                  newUserData.firstName = e.target.value;
-                  this.setState({ newUserData });
-                }}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for="lastname">Nazwisko</Label>
-              <Input
-                id="lastname"
-                placeholder="Podaj Nazwisko"
-                value={this.state.newUserData.lastName}
-                onChange={e => {
-                  let { newUserData } = this.state;
-                  newUserData.lastName = e.target.value;
-                  this.setState({ newUserData });
-                }}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for="username">Email</Label>
-              <Input
-                id="username"
-                placeholder="Podaj Emiala"
-                value={this.state.newUserData.username}
-                onChange={e => {
-                  let { newUserData } = this.state;
-                  newUserData.username = e.target.value;
-                  this.setState({ newUserData });
-                }}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for="password">Password</Label>
-              <Input
-                type="password"
-                id="firsname"
-                placeholder="Podaj Hasło"
-                value={this.state.newUserData.password}
-                onChange={e => {
-                  let { newUserData } = this.state;
-                  newUserData.password = e.target.value;
-                  this.setState({ newUserData });
-                }}
-              />
-            </FormGroup>
-          </ModalBody>
-          <ModalFooter>
-            <Button color="primary" onClick={this.addUser.bind(this)}>
-              Dodaj
-            </Button>{" "}
-            <Button
-              color="secondary"
-              onClick={this.toggleNewUserModel.bind(this)}
-            >
-              Cancel
-            </Button>
-          </ModalFooter>
-        </Modal>
         <Modal isOpen={this.state.editUserModel}>
           <ModalHeader>Edytowanie Uzytkownika</ModalHeader>
           <ModalBody>

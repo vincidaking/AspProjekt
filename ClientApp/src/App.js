@@ -3,6 +3,8 @@ import { Layout } from "./components/Layout";
 import React, { Component } from "react";
 import { LawPage } from "./components/LawPage";
 import { UserPage } from "./components/UserPage";
+import { Login } from "./components/Login";
+import { RegisterPage } from "./components/RegisterPage";
 import { BrowserRouter } from "react-router-dom";
 
 export default class App extends Component {
@@ -16,6 +18,9 @@ export default class App extends Component {
 
           <Route path="/LawPage" component={LawPage} />
           <Route path="/UserPage" component={UserPage} />
+
+          <Route path="/RegisterPage" component={RegisterPage} />
+          <Route path="/Login" component={Login} />
         </Layout>
       </BrowserRouter>
     );
