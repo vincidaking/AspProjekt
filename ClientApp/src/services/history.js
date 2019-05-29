@@ -1,4 +1,4 @@
-import { createBrowserHistory } from "./services";
+import { createBrowserHistory } from "history";
 
 export const history = createBrowserHistory();
 

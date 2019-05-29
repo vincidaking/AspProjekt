@@ -132,7 +132,7 @@ export class LawPage extends Component {
             <Button
               color="success"
               size="sm"
-              classname="mr-2"
+              className="mr-2"
               onClick={this.editLaws.bind(
                 this,
                 law.id,
@@ -157,10 +157,10 @@ export class LawPage extends Component {
     });
 
     return (
-      <div classname="App container">
+      <div className="App container">
         <h1>Dodanie Uchwały</h1>
         <Button
-          classname="my-3"
+          className="my-3"
           color="primary"
           onClick={this.toggleNewLawsModel.bind(this)}
         >

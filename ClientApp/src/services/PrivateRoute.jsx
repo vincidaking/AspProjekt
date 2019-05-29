@@ -1,7 +1,9 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 
-import { authenticationService } from "@/_services";
+import { authenticationService } from "./authentication.service";
+import Jwt from "../helpers/Jwt";
+import { decode } from "jwt-decode";
 
 export const PrivateRoute = ({ component: Component, roles, ...rest }) => (
   <Route
@@ -16,7 +18,7 @@ export const PrivateRoute = ({ component: Component, roles, ...rest }) => (
           />
         );
       }
-
+      // decode(currentUser.token)[Jwt.Token]
       // check if route is restricted by role
       if (roles && roles.indexOf(currentUser.role) === -1) {
         // role not authorised so redirect to home page

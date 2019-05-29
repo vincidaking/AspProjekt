@@ -18,14 +18,16 @@ export class RegisterPage extends Component {
       firstName: "",
       lastName: "",
       username: "",
-      password: ""
+      password: "",
+      role: ""
     },
     editUserData: {
       id: "",
       firstName: "",
       lastName: "",
       username: "",
-      password: ""
+      password: "",
+      role: ""
     },
     newUserModal: false,
     editUserModal: false
@@ -52,7 +54,8 @@ export class RegisterPage extends Component {
             firstName: "",
             lastName: "",
             username: "",
-            password: ""
+            password: "",
+            role: "user"
           }
         });
       });

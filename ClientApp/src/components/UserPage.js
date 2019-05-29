@@ -13,20 +13,28 @@ import {
 } from "reactstrap";
 
 export class UserPage extends Component {
+  constructor() {
+    super();
+
+    this.toggleEditUserModel = this.toggleEditUserModel.bind(this);
+  }
+
   state = {
     users: [],
     newUserData: {
       firstName: "",
       lastName: "",
       username: "",
-      password: ""
+      password: "",
+      role: ""
     },
     editUserData: {
       id: "",
       firstName: "",
       lastName: "",
       username: "",
-      password: ""
+      password: "",
+      role: "user"
     },
     newUserModal: false,
     editUserModal: false
@@ -46,7 +54,7 @@ export class UserPage extends Component {
 
   toggleEditUserModel() {
     this.setState({
-      editUserModal: false
+      editUserModal: !this.state.editUserModal
     });
   }
 
@@ -56,7 +64,8 @@ export class UserPage extends Component {
       firstName,
       lastName,
       username,
-      password
+      password,
+      role
     } = this.state.editUserData;
     axios
       .put("http://localhost:57548/users/" + this.state.editUserData.id, {
@@ -64,17 +73,18 @@ export class UserPage extends Component {
         firstName,
         lastName,
         username,
-        password
+        password,
+        role
       })
       .then(response => {
         this._refreshUser();
       });
   }
 
-  editUser(id, firstName, lastName, username, password) {
+  editUser(id, firstName, lastName, username, password, role) {
     if (password == null) password = "";
     this.setState({
-      editUserData: { id, firstName, lastName, username, password },
+      editUserData: { id, firstName, lastName, username, password, role },
       editUserModel: true
     });
   }
@@ -190,10 +200,7 @@ export class UserPage extends Component {
             <Button color="primary" onClick={this.updateUser.bind(this)}>
               Zapisz
             </Button>{" "}
-            <Button
-              color="secondary"
-              onClick={this.toggleEditUserModel.bind(this)}
-            >
+            <Button color="secondary" onClick={this.toggleEditUserModel}>
               Cancel
             </Button>
           </ModalFooter>
