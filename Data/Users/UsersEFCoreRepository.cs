@@ -44,6 +44,7 @@ namespace Apka2.Data.Users
             if (original == null)
                 throw new Exception("Nie istnieje użytkownik o takim Id");
 
+            user.Role = RoleNames.User;
             _context.Entry(user).State = EntityState.Modified;
 
             await _context.SaveChangesAsync();

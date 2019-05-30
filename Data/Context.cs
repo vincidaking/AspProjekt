@@ -22,9 +22,9 @@ namespace Apka2.Data
                 Id = 1,
                 FirstName = "SA",
                 LastName = "SA",
-                Password = "123456",
+                Password = "admin",
                 Role = RoleNames.Admin,
-                Username = "Admin"
+                Username = "admin"
             });
         }
     }

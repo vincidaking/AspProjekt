@@ -7,9 +7,12 @@ using Apka2.Model;
 using Apka2.Data;
 using System.ComponentModel.DataAnnotations;
 using System;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Apka2.Controllers
 {
+    [Authorize]
+
     [Route("api/[controller]")]
     [ApiController]
     public class LawsController : ControllerBase
@@ -43,33 +46,11 @@ namespace Apka2.Controllers
         }
 
         // PUT: api/Laws/5
+        [Authorize(Roles = RoleNames.Admin)]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutLaw(int id, Law law)
         {
-            //if (id != law.Id)
-            //{
-            //    return BadRequest();
-            //}
-
-            //_context.Entry(law).State = EntityState.Modified;
-
-            //try
-            //{
-            //    await _context.SaveChangesAsync();
-            //}
-            //catch (DbUpdateConcurrencyException)
-            //{
-            //    if (!LawExists(id))
-            //    {
-            //        return NotFound();
-            //    }
-            //    else
-            //    {
-            //        throw;
-            //    }
-            //}
-
-            //return NoContent();
+         
             if (id != law.Id)
                 return BadRequest("Id muszę być takie same");
 
@@ -85,6 +66,7 @@ namespace Apka2.Controllers
         }
 
         // POST: api/Laws
+        [Authorize(Roles = RoleNames.Admin)]
         [HttpPost]
         public async Task<ActionResult<Law>> PostLaw(Law law)
         {
@@ -103,6 +85,8 @@ namespace Apka2.Controllers
             return CreatedAtAction("GetLaw", new { id = law.Id }, law);
         }
 
+
+        [Authorize(Roles = RoleNames.Admin)]
         // DELETE: api/Laws/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Law>> DeleteLaw(int id)

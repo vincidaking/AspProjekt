@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+import axios from "../helpers/axios.api"
 import {
   Button,
   Modal,
@@ -18,16 +18,16 @@ export class RegisterPage extends Component {
       firstName: "",
       lastName: "",
       username: "",
-      password: "",
-      role: ""
+      password: ""
+      
     },
     editUserData: {
       id: "",
       firstName: "",
       lastName: "",
       username: "",
-      password: "",
-      role: ""
+      password: ""
+      
     },
     newUserModal: false,
     editUserModal: false
@@ -41,7 +41,7 @@ export class RegisterPage extends Component {
 
   addUser() {
     axios
-      .post("http://localhost:57548/users/registred", this.state.newUserData)
+      .post("users/registred", this.state.newUserData)
       .then(response => {
         let { users } = this.state;
 
@@ -54,8 +54,8 @@ export class RegisterPage extends Component {
             firstName: "",
             lastName: "",
             username: "",
-            password: "",
-            role: "user"
+            password: ""
+            
           }
         });
       });

@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Apka2.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class UsersController : ControllerBase
@@ -50,7 +50,7 @@ namespace Apka2.Controllers
             return registeredUser;
 
         }
-
+        [Authorize(Roles = RoleNames.Admin)]
         [HttpPut("{id}")]
         public async Task<ActionResult<User>> Update(int id, [FromBody]User userParam)
         {
@@ -71,7 +71,7 @@ namespace Apka2.Controllers
             }
         }
 
-        //[Authorize(Roles = Role.Admin)]
+        [Authorize(Roles = RoleNames.Admin)]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {

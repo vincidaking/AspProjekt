@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+import axios from "../helpers/axios.api"
 import {
   Table,
   Button,
@@ -59,7 +59,7 @@ export class LawPage extends Component {
 
   addLaw() {
     axios
-      .post("http://localhost:57548/api/Laws/", this.state.newLawsData)
+      .post("api/Laws/", this.state.newLawsData)
       .then(response => {
         let { laws } = this.state;
 
@@ -83,7 +83,7 @@ export class LawPage extends Component {
   updateLaws() {
     let { id, name, lawText, dateAdd, dateEnd } = this.state.editLawsData;
     axios
-      .put("http://localhost:57548/api/Laws/" + this.state.editLawsData.id, {
+      .put("api/Laws/" + this.state.editLawsData.id, {
         id,
         name,
         lawText,
@@ -103,7 +103,7 @@ export class LawPage extends Component {
   }
 
   deleteLaw(id) {
-    axios.delete("http://localhost:57548/api/Laws/" + id).then(response => {
+    axios.delete("api/Laws/" + id).then(response => {
       this._refreshLaw();
     });
   }
@@ -113,7 +113,7 @@ export class LawPage extends Component {
     //   const laws = res.data;
     //   this.setState({ laws });
     // });
-    axios.get("http://localhost:57548/api/Laws").then(response => {
+    axios.get("api/Laws").then(response => {
       this.setState({
         laws: response.data
       });

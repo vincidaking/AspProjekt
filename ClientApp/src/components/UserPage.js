@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+
 import {
   Table,
   Button,
@@ -11,6 +11,8 @@ import {
   Input,
   Label
 } from "reactstrap";
+
+import axios from "../helpers/axios.api"
 
 export class UserPage extends Component {
   constructor() {
@@ -68,7 +70,7 @@ export class UserPage extends Component {
       role
     } = this.state.editUserData;
     axios
-      .put("http://localhost:57548/users/" + this.state.editUserData.id, {
+      .put("users/" + this.state.editUserData.id, {
         id,
         firstName,
         lastName,
@@ -90,7 +92,7 @@ export class UserPage extends Component {
   }
 
   deleteUser(id) {
-    axios.delete("http://localhost:57548/users/" + id).then(response => {
+    axios.delete("users/" + id).then(response => {
       this._refreshUser();
     });
   }
@@ -100,7 +102,7 @@ export class UserPage extends Component {
     //   const users = res.data;
     //   this.setState({ users });
     // });
-    axios.get("http://localhost:57548/users/").then(response => {
+    axios.get("users/").then(response => {
       this.setState({
         users: response.data
       });
@@ -129,7 +131,7 @@ export class UserPage extends Component {
               )}
             >
               Edytuj
-            </Button>
+            </Button>{" "}
             <Button
               color="danger"
               size="sm"

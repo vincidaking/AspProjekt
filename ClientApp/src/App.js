@@ -3,6 +3,7 @@ import { Router, Route, Link } from "react-router-dom";
 import { Layout } from "./components/Layout";
 import React, { Component } from "react";
 import { LawPage } from "./components/LawPage";
+import { LawPageUser } from "./components/LawPageUser";
 import { UserPage } from "./components/UserPage";
 
 import { RegisterPage } from "./components/RegisterPage";
@@ -43,7 +44,7 @@ export class App extends Component {
   }
   render() {
     const { currentUser, isAdmin } = this.state;
-    console.log(this.state.currentUser);
+    //console.log(this.state.currentUser);
     return (
       // <BrowserRouter>
       //   <Layout>
@@ -60,21 +61,27 @@ export class App extends Component {
           {currentUser && (
             <nav className="navbar navbar-expand navbar-dark bg-dark">
               <div className="navbar-nav">
-                <Link to="/" className="nav-item nav-link">
-                  Res List
-                </Link>
-                {isAdmin && (
-                  <Link to="/registerpage" className="nav-item nav-link">
-                    Add User
+                {!isAdmin && (
+                  <Link to="/" className="nav-item nav-link">
+                    Ustway
                   </Link>
                 )}
+                {/* {isAdmin && (
+                  <Link to="/lawpage" className="nav-item nav-link">
+                    Ustway
+                  </Link>)} */}
+
+                <Link to="/lawpage" className="nav-item nav-link">
+                  Ustway
+                </Link>
+
                 {isAdmin && (
                   <Link to="/userpage" className="nav-item nav-link">
-                    User List
+                    Użytkownicy
                   </Link>
                 )}
                 <a onClick={this.logout} className="nav-item nav-link">
-                  Logout
+                  Wylogowanie
                 </a>
               </div>
             </nav>
@@ -83,26 +90,22 @@ export class App extends Component {
             <div className="container">
               <div className="row">
                 <div className="col-md-6 offset-md-3">
-                  <PrivateRoute exact path="/" component={LawPage} />
+                  <PrivateRoute exact path="/" component={LawPageUser} />
+
+                  {/* <PrivateRoute exact path="/lawpage" component={LawPageUser} roles={[Role.Admin]} /> */}
+
                   <PrivateRoute
                     path="/userpage"
                     roles={[Role.Admin]}
                     component={UserPage}
                   />
-                  <PrivateRoute
-                    path="/registerpage"
+                  <PrivateRoute path="/registerpage" component={RegisterPage} />
+                  <PrivateRoute path="/lawpage" component={LawPage} />
+
+                  {/* <PrivateRoute exact
+                    path="/lawpage"
                     roles={[Role.Admin]}
-                    component={RegisterPage}
-                  />
-                  {/* <PrivateRoute
-                    path="/edituser/:id"
-                    roles={[Role.Admin]}
-                    component={EditUser}
-                  />
-                  <PrivateRoute
-                    path="/deluser/:id"
-                    roles={[Role.Admin]}
-                    component={DelUser}
+                    component={LawPage}
                   /> */}
                   <Route path="/login" component={LoginPage} />
                 </div>
