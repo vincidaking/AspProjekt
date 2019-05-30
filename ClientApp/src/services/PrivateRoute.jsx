@@ -2,8 +2,6 @@ import React from "react";
 import { Route, Redirect } from "react-router-dom";
 
 import { authenticationService } from "./authentication.service";
-import Jwt from "../helpers/Jwt";
-import { decode } from "jwt-decode";
 
 export const PrivateRoute = ({ component: Component, roles, ...rest }) => (
   <Route

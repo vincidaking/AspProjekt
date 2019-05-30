@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "../helpers/axios.api"
+import axios from "../helpers/axios.api";
 import {
   Table,
   Button,
@@ -13,6 +13,11 @@ import {
 } from "reactstrap";
 
 export class LawPage extends Component {
+  // constructor() {
+  //   super();
+
+  //   this.toggleEditLawsModel = this.toggleEditLawsModel.bind(this);
+  // }
   state = {
     laws: [],
     newLawsData: {
@@ -53,31 +58,30 @@ export class LawPage extends Component {
   toggleEditLawsModel() {
     this.setState({
       // editLawsModal: false
-      editLawsModal: false
+
+      editLawsModal: !this.state.editLawsModal
     });
   }
 
   addLaw() {
-    axios
-      .post("api/Laws/", this.state.newLawsData)
-      .then(response => {
-        let { laws } = this.state;
+    axios.post("api/Laws/", this.state.newLawsData).then(response => {
+      let { laws } = this.state;
 
-        laws.push(response.data);
+      laws.push(response.data);
 
-        this.setState({
-          laws,
-          newLawsModal: false,
-          newLawsData: {
-            name: "",
-            lawText: "",
-            dateAdd: "",
-            dateEnd: ""
-          }
-        });
-
-        //this._refreshLaw();
+      this.setState({
+        laws,
+        newLawsModal: false,
+        newLawsData: {
+          name: "",
+          lawText: "",
+          dateAdd: "",
+          dateEnd: ""
+        }
       });
+
+      //this._refreshLaw();
+    });
   }
 
   updateLaws() {
@@ -300,16 +304,13 @@ export class LawPage extends Component {
             <Button color="primary" onClick={this.updateLaws.bind(this)}>
               Edycja
             </Button>{" "}
-            <Button
-              color="secondary"
-              onClick={this.toggleEditLawsModel.bind(this)}
-            >
+            <Button color="secondary" onClick={this.toggleEditLawsModel}>
               Cancel
             </Button>
           </ModalFooter>
         </Modal>
 
-        <Table>
+        <Table responsive>
           <thead>
             <tr>
               <th>Nazwa</th>

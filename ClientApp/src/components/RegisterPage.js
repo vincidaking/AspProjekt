@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "../helpers/axios.api"
+import axios from "../helpers/axios.api";
 import {
   Button,
   Modal,
@@ -8,6 +8,7 @@ import {
   ModalFooter,
   FormGroup,
   Input,
+  Row,
   Label
 } from "reactstrap";
 
@@ -19,7 +20,6 @@ export class RegisterPage extends Component {
       lastName: "",
       username: "",
       password: ""
-      
     },
     editUserData: {
       id: "",
@@ -27,7 +27,6 @@ export class RegisterPage extends Component {
       lastName: "",
       username: "",
       password: ""
-      
     },
     newUserModal: false,
     editUserModal: false
@@ -40,30 +39,29 @@ export class RegisterPage extends Component {
   }
 
   addUser() {
-    axios
-      .post("users/registred", this.state.newUserData)
-      .then(response => {
-        let { users } = this.state;
+    axios.post("users/registred", this.state.newUserData).then(response => {
+      let { users } = this.state;
 
-        users.push(response.data);
+      users.push(response.data);
 
-        this.setState({
-          users,
-          newUserModal: false,
-          newUserData: {
-            firstName: "",
-            lastName: "",
-            username: "",
-            password: ""
-            
-          }
-        });
+      this.setState({
+        users,
+        newUserModal: false,
+        newUserData: {
+          firstName: "",
+          lastName: "",
+          username: "",
+          password: ""
+        }
       });
+    });
   }
+
+  model() {}
 
   render() {
     return (
-      <div className="App container">
+      <div>
         <Button
           className="my-3"
           color="primary"

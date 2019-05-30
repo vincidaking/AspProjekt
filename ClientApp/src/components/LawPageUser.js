@@ -1,16 +1,6 @@
 import React, { Component } from "react";
-import axios from "../helpers/axios.api"
-import {
-  Table,
-  Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  FormGroup,
-  Input,
-  Label
-} from "reactstrap";
+import axios from "../helpers/axios.api";
+import { Table } from "reactstrap";
 
 export class LawPageUser extends Component {
   state = {
@@ -44,20 +34,6 @@ export class LawPageUser extends Component {
     this._refreshLaw();
   }
 
-  
-
-  
-
- 
-
-   
-
-  
-
-  
-
-
-
   _refreshLaw() {
     // axios.get(`http://localhost:57548/laws/`).then(res => {
     //   const laws = res.data;
@@ -78,16 +54,12 @@ export class LawPageUser extends Component {
           <td>{law.lawText}</td>
           <td>{law.dateAdd}</td>
           <td>{law.dateEnd}</td>
-          
         </tr>
       );
     });
 
     return (
       <div className="App container">
-       
-
-        
         <Table>
           <thead>
             <tr>

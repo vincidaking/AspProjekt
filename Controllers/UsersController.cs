@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Threading.Tasks;
 using Apka2.Data.Users;
-
 using Apka2.Model;
 using Apka2.Services.Users;
 using Microsoft.AspNetCore.Authorization;
@@ -27,6 +27,7 @@ namespace Apka2.Controllers
             _userService = userService;
         }
 
+        //[Authorize(Roles = RoleNames.Admin)]
         [HttpGet]
         public async Task<ActionResult<ICollection<User>>> GetAll()
         {
@@ -50,7 +51,8 @@ namespace Apka2.Controllers
             return registeredUser;
 
         }
-        [Authorize(Roles = RoleNames.Admin)]
+
+        [Authorize(Roles = RoleNames.Admin)]   
         [HttpPut("{id}")]
         public async Task<ActionResult<User>> Update(int id, [FromBody]User userParam)
         {
@@ -70,6 +72,7 @@ namespace Apka2.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
 
         [Authorize(Roles = RoleNames.Admin)]
         [HttpDelete("{id}")]

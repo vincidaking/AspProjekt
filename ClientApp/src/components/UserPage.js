@@ -12,7 +12,7 @@ import {
   Label
 } from "reactstrap";
 
-import axios from "../helpers/axios.api"
+import axios from "../helpers/axios.api";
 
 export class UserPage extends Component {
   constructor() {
@@ -27,16 +27,14 @@ export class UserPage extends Component {
       firstName: "",
       lastName: "",
       username: "",
-      password: "",
-      role: ""
+      password: ""
     },
     editUserData: {
       id: "",
       firstName: "",
       lastName: "",
       username: "",
-      password: "",
-      role: "user"
+      password: ""
     },
     newUserModal: false,
     editUserModal: false
@@ -66,8 +64,7 @@ export class UserPage extends Component {
       firstName,
       lastName,
       username,
-      password,
-      role
+      password
     } = this.state.editUserData;
     axios
       .put("users/" + this.state.editUserData.id, {
@@ -75,18 +72,17 @@ export class UserPage extends Component {
         firstName,
         lastName,
         username,
-        password,
-        role
+        password
       })
       .then(response => {
         this._refreshUser();
       });
   }
 
-  editUser(id, firstName, lastName, username, password, role) {
+  editUser(id, firstName, lastName, username, password) {
     if (password == null) password = "";
     this.setState({
-      editUserData: { id, firstName, lastName, username, password, role },
+      editUserData: { id, firstName, lastName, username, password },
       editUserModel: true
     });
   }

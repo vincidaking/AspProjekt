@@ -11,8 +11,8 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Apka2.Controllers
 {
-    [Authorize]
 
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class LawsController : ControllerBase
@@ -25,9 +25,13 @@ namespace Apka2.Controllers
         }
 
         // GET: api/Laws
+
+        
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Law>>> GetLaws()
         {
+
             return await _context.Laws.ToListAsync();
         }
 
