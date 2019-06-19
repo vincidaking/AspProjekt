@@ -39,8 +39,11 @@ namespace Apka2.Controllers
         [HttpPost("authenticate")]
         public async Task<ActionResult<User>> Authenticate([FromBody]User userParam)
         {
+
             var user = await _userService.AuthenticateAsync(userParam.Username, userParam.Password);
-            return user;
+            if (user == null) return NotFound();
+
+                return user;
         }
 
         [AllowAnonymous]

@@ -18,11 +18,9 @@ export class LoginPage extends React.Component {
     return (
       <div>
         <div className="alert alert-info">
-          <strong>Normal User</strong> - U: user P: user
-          <br />
           <strong>Administrator</strong> - U: admin P: admin
         </div>
-        <h2>Login</h2>
+        <h2>Logowanie</h2>
         <Formik
           initialValues={{
             username: "",
@@ -50,7 +48,7 @@ export class LoginPage extends React.Component {
           render={({ errors, status, touched, isSubmitting }) => (
             <Form>
               <div className="form-group">
-                <label htmlFor="username">Username</label>
+                <label htmlFor="username">Użytkownik</label>
                 <Field
                   name="username"
                   type="text"
@@ -65,8 +63,9 @@ export class LoginPage extends React.Component {
                   className="invalid-feedback"
                 />
               </div>
+
               <div className="form-group">
-                <label htmlFor="password">Password</label>
+                <label htmlFor="password">Hasło</label>
                 <Field
                   name="password"
                   type="password"
@@ -89,14 +88,18 @@ export class LoginPage extends React.Component {
                   disabled={isSubmitting}
                 >
                   Login
-                </button>{" "}
+                </button>
                 <RegisterPage />
-              </div>
-              {/* {isSubmitting && (
+                {isSubmitting && (
                   <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-                )}    */}
+                )}
+              </div>
 
-              {status && <div className={"alert alert-danger"}>{status}</div>}
+              {status && (
+                <div className={"alert alert-danger"}>
+                  Błedny login lub hasło
+                </div>
+              )}
             </Form>
           )}
         />

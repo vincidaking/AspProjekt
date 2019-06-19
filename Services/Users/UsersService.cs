@@ -25,8 +25,14 @@ namespace Apka2.Services
 
         public async Task<User> AuthenticateAsync(string username, string password)
         {
+
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+                return null;
+
             var user = await _usersRepository
                 .GetAsync(username, password);
+
+            if (user == null) return null;
 
             // authentication successful so generate jwt token
             var tokenHandler = new JwtSecurityTokenHandler();

@@ -23,7 +23,9 @@ namespace Apka2.Data.Users
         {
             var user = await _context.Users.SingleOrDefaultAsync(x => x.Username == username && x.Password == password);
             if (user == null)
-                throw new Exception("Nie istnieje użytkownik o takim Id");
+                return null;
+
+            //throw new Exception("Nie istnieje użytkownik o takim Id");
             return user;
         }
 
@@ -42,6 +44,7 @@ namespace Apka2.Data.Users
 
             var original = await _context.Users.AsNoTracking().SingleOrDefaultAsync(x => x.Id == user.Id);
             if (original == null)
+                //return null;
                 throw new Exception("Nie istnieje użytkownik o takim Id");
 
             user.Role = RoleNames.User;
