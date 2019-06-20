@@ -13,11 +13,11 @@ import {
 } from "reactstrap";
 
 export class LawPage extends Component {
-  // constructor() {
-  //   super();
+  constructor() {
+    super();
 
-  //   this.toggleEditLawsModel = this.toggleEditLawsModel.bind(this);
-  // }
+    this.toggleEditLawsModel = this.toggleEditLawsModel.bind(this);
+  }
   state = {
     laws: [],
     newLawsData: {
@@ -33,8 +33,8 @@ export class LawPage extends Component {
       dateAdd: "",
       dateEnd: ""
     },
-    newLawsModal: false,
-    editLawsModal: false
+    newLawsModel: false,
+    editLawsModel: false
   };
 
   // componetWillMount() {
@@ -51,15 +51,15 @@ export class LawPage extends Component {
 
   toggleNewLawsModel() {
     this.setState({
-      newLawsModal: !this.state.newLawsModal
+      newLawsModel: !this.state.newLawsModel
     });
   }
 
   toggleEditLawsModel() {
     this.setState({
-      // editLawsModal: false
+      // editLawsModel: false
 
-      editLawsModal: !this.state.editLawsModal
+      editLawsModel: !this.state.editLawsModel
     });
   }
 
@@ -71,7 +71,7 @@ export class LawPage extends Component {
 
       this.setState({
         laws,
-        newLawsModal: false,
+        newLawsModel: false,
         newLawsData: {
           name: "",
           lawText: "",
@@ -171,7 +171,7 @@ export class LawPage extends Component {
           Dodaj
         </Button>
         <Modal
-          isOpen={this.state.newLawsModal}
+          isOpen={this.state.newLawsModel}
           toggle={this.toggleNewLawsModel.bind(this)}
         >
           <ModalHeader toggle={this.toggleNewLawsModel.bind(this)}>
@@ -246,7 +246,7 @@ export class LawPage extends Component {
           </ModalFooter>
         </Modal>
 
-        <Modal isOpen={this.state.editLawsModal}>
+        <Modal isOpen={this.state.editLawsModel}>
           <ModalHeader>Edytowanie Uchwały</ModalHeader>
           <ModalBody>
             <FormGroup>

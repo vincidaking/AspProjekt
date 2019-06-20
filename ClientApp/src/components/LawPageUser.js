@@ -18,8 +18,8 @@ export class LawPageUser extends Component {
       dateAdd: "",
       dateEnd: ""
     },
-    newLawsModal: false,
-    editLawsModal: false
+    newLawsModel: false,
+    editLawsModel: false
   };
 
   // componetWillMount() {
