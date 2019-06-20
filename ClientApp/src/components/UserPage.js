@@ -37,7 +37,7 @@ export class UserPage extends Component {
       password: ""
     },
     newUserModal: false,
-    editUserModal: false
+    editUserModel: false
   };
 
   // componetWillMount() {
@@ -54,7 +54,7 @@ export class UserPage extends Component {
 
   toggleEditUserModel() {
     this.setState({
-      editUserModal: !this.state.editUserModal
+      editUserModel: !this.state.editUserModel
     });
   }
 
