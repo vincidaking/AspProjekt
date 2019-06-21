@@ -9,7 +9,7 @@ namespace Apka2.Migrations
             migrationBuilder.InsertData(
                 table: "User",
                 columns: new[] { "Id", "FirstName", "LastName", "Password", "Role", "Token", "Username" },
-                values: new object[] { 1, "SA", "SA", "admin", "admin", null, "Admin" });
+                values: new object[] { 1, "SA", "SA", "admin", "Admin", null, "admin" });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

@@ -27,7 +27,7 @@ namespace Apka2.Controllers
             _userService = userService;
         }
 
-        //[Authorize(Roles = RoleNames.Admin)]
+        [Authorize(Roles = RoleNames.Admin)]
         [HttpGet]
         public async Task<ActionResult<ICollection<User>>> GetAll()
         {

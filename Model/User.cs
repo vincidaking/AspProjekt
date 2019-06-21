@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Apka2.Model
 {
@@ -12,6 +13,7 @@ namespace Apka2.Model
         public string Password { get; set; }
         public string Role { get; set; }
         public string Token { get; set; }
+        public ICollection<LawUser> LawUsers { get; set; }
 
     }
 }
