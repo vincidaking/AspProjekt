@@ -1,49 +1,67 @@
 import React, { Component } from "react";
 import axios from "../helpers/axios.api";
-import { Table } from "reactstrap";
+import {
+  Table,
+  Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  FormGroup,
+  Label
+} from "reactstrap";
+
+import { authenticationService } from "../services/authentication.service";
 
 export class LawPageUser extends Component {
   state = {
     laws: [],
-    newLawsData: {
-      name: "",
-      lawText: "",
-      dateAdd: "",
-      dateEnd: ""
-    },
-    editLawsData: {
+    newVoteData: {
       id: "",
-      name: "",
-      lawText: "",
-      dateAdd: "",
-      dateEnd: ""
+      voteTypeId: "",
+      username: authenticationService.currentUserValue.username
     },
-    newLawsModel: false,
-    editLawsModel: false
+    newVoteModel: false
   };
-
-  // componetWillMount() {
-  //   axios.get("http://localhost:57548/laws/").then(response => {
-  //     this.setState({
-  //       laws: response.data
-  //     });
-  //   });
-  // }
 
   componentWillMount() {
     this._refreshLaw();
   }
 
+  toggleNewVoteModel(id) {
+    this.setState({
+      newVoteModel: !this.state.newVoteModel,
+      newVoteData: { id }
+    });
+  }
+
   _refreshLaw() {
-    // axios.get(`http://localhost:57548/laws/`).then(res => {
-    //   const laws = res.data;
-    //   this.setState({ laws });
-    // });
     axios.get("api/Laws").then(response => {
       this.setState({
         laws: response.data
       });
     });
+  }
+
+  addVote(id) {
+    axios
+      .post("api/Votes/" + this.state.newVoteData.id, this.state.newVoteData)
+      .then(response => {
+        let { laws } = this.state;
+
+        laws.push(response.data);
+
+        this.setState({
+          laws,
+          newVoteModel: false,
+          newVoteData: {
+            id: "",
+            voteTypeId: ""
+          }
+        });
+
+        //this._refreshLaw();
+      });
   }
 
   render() {
@@ -54,12 +72,61 @@ export class LawPageUser extends Component {
           <td>{law.lawText}</td>
           <td>{law.dateAdd}</td>
           <td>{law.dateEnd}</td>
+          <td>
+            <Button
+              className="my-3"
+              color="primary"
+              onClick={this.toggleNewVoteModel.bind(this, law.id)}
+            >
+              Głosuj
+            </Button>
+          </td>
         </tr>
       );
     });
 
     return (
       <div className="App container">
+        <Modal
+          isOpen={this.state.newVoteModel}
+          toggle={this.toggleNewVoteModel.bind(this)}
+        >
+          <ModalHeader toggle={this.toggleNewVoteModel.bind(this)}>
+            Zagłosuj
+          </ModalHeader>
+          <ModalBody>
+            <FormGroup>
+              <Label for="voteTypeId">Typ głosu</Label>
+              <select
+                className="form-control"
+                data-style="form-control"
+                title="Typ głosu"
+                onChange={e => {
+                  let { newVoteData } = this.state;
+                  newVoteData.voteTypeId = e.target.value;
+                  this.setState({ newVoteData });
+                }}
+              >
+                <option hidden>Głusujesz na:</option>
+                <option value="1">Zgadzam </option>
+                <option value="2">Nie zgadzam</option>
+                <option value="3">Wstrzymuje się</option>
+              </select>
+            </FormGroup>
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary" onClick={this.addVote.bind(this)}>
+              Głosuj
+            </Button>{" "}
+            <Button
+              color="secondary"
+              onClick={this.toggleNewVoteModel.bind(this)}
+            >
+              Cancel
+            </Button>
+          </ModalFooter>
+        </Modal>
+
         <Table>
           <thead>
             <tr>

@@ -43,7 +43,8 @@ export class RegisterPage extends Component {
       let { users } = this.state;
 
       users.push(response.data);
-
+      console.log(response);
+      console.log(response.data);
       this.setState({
         users,
         newUserModal: false,
