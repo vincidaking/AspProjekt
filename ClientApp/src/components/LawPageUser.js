@@ -18,8 +18,8 @@ export class LawPageUser extends Component {
     laws: [],
     newVoteData: {
       id: "",
-      voteTypeId: "",
-      username: authenticationService.currentUserValue.username
+      username: "",
+      voteTypeId: ""
     },
     newVoteModel: false
   };
@@ -43,25 +43,18 @@ export class LawPageUser extends Component {
     });
   }
 
-  addVote(id) {
-    axios
-      .post("api/Votes/" + this.state.newVoteData.id, this.state.newVoteData)
-      .then(response => {
-        let { laws } = this.state;
-
-        laws.push(response.data);
-
-        this.setState({
-          laws,
-          newVoteModel: false,
-          newVoteData: {
-            id: "",
-            voteTypeId: ""
-          }
-        });
-
-        //this._refreshLaw();
+  addVote() {
+    axios.post("api/Votes/", this.state.newVoteData).then(response => {
+      this.setState({
+        newVoteModel: false,
+        newVoteData: {
+          id: "",
+          voteTypeId: ""
+        }
       });
+    });
+
+    //this._refreshLaw();
   }
 
   render() {
@@ -104,13 +97,15 @@ export class LawPageUser extends Component {
                 onChange={e => {
                   let { newVoteData } = this.state;
                   newVoteData.voteTypeId = e.target.value;
+                  newVoteData.username =
+                    authenticationService.currentUserValue.username;
                   this.setState({ newVoteData });
                 }}
               >
                 <option hidden>Głusujesz na:</option>
-                <option value="1">Zgadzam </option>
-                <option value="2">Nie zgadzam</option>
-                <option value="3">Wstrzymuje się</option>
+                <option value="0">Zgadzam </option>
+                <option value="1">Nie zgadzam</option>
+                <option value="2">Wstrzymuje się</option>
               </select>
             </FormGroup>
           </ModalBody>

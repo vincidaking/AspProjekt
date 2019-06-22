@@ -13,7 +13,6 @@ namespace Apka2.Model
         public string Password { get; set; }
         public string Role { get; set; }
         public string Token { get; set; }
-        public ICollection<LawUser> LawUsers { get; set; }
-
+        public virtual ICollection<Vote> Votes { get; set; }
     }
 }

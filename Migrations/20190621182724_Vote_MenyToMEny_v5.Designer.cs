@@ -4,14 +4,16 @@ using Apka2.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Apka2.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20190621182724_Vote_MenyToMEny_v5")]
+    partial class Vote_MenyToMEny_v5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,6 +38,29 @@ namespace Apka2.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Laws");
+                });
+
+            modelBuilder.Entity("Apka2.Model.LawUser", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("LawId");
+
+                    b.Property<int>("UserId");
+
+                    b.Property<int?>("VoteTypeId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LawId");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("VoteTypeId");
+
+                    b.ToTable("LawUser");
                 });
 
             modelBuilder.Entity("Apka2.Model.User", b =>
@@ -72,36 +97,51 @@ namespace Apka2.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Apka2.Model.Vote", b =>
+            modelBuilder.Entity("Apka2.Model.VoteType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("LawId");
-
-                    b.Property<int?>("UserId");
-
-                    b.Property<int>("VoteType");
+                    b.Property<string>("Name");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LawId");
+                    b.ToTable("VoteTypes");
 
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Votes");
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Za"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Przeciw"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Wstrzymanie"
+                        });
                 });
 
-            modelBuilder.Entity("Apka2.Model.Vote", b =>
+            modelBuilder.Entity("Apka2.Model.LawUser", b =>
                 {
                     b.HasOne("Apka2.Model.Law", "Law")
-                        .WithMany("Votes")
-                        .HasForeignKey("LawId");
+                        .WithMany("LawUsers")
+                        .HasForeignKey("LawId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Apka2.Model.User", "User")
-                        .WithMany("Votes")
-                        .HasForeignKey("UserId");
+                        .WithMany("LawUsers")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Apka2.Model.VoteType", "VoteType")
+                        .WithMany()
+                        .HasForeignKey("VoteTypeId");
                 });
 #pragma warning restore 612, 618
         }

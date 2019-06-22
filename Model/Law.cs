@@ -16,7 +16,6 @@ namespace Apka2.Model
        
         public DateTime DateEnd { get; set; }
 
-        public ICollection<VoteType> VoteTypes { get; set; }
-        public ICollection<LawUser> LawUsers { get; set; }
+        public virtual ICollection<Vote> Votes { get; set; }
     }
 }
