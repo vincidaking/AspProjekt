@@ -35,7 +35,7 @@ namespace Apka2.Controllers
             var LawsList = await _context.Laws.ToListAsync();
 
             //var ListWithOption = await _context.Votes.ToListAsync();
-
+            //TODO dodanie viewmodelu z wybrtana opcja na ktora sie zaglosowalo
 
 
             var LawListWithOption = new List<Law>();
@@ -149,6 +149,9 @@ namespace Apka2.Controllers
             if (original == null)
                 throw new Exception("Nie istnieje ustawa o takim Id");
 
+            if(law.DateEnd<DateTime.Today)
+                return BadRequest("Data zakonczenia musi być puzniejsza");
+
             _context.Entry(law).State = EntityState.Modified;
 
             await _context.SaveChangesAsync();
@@ -161,6 +164,10 @@ namespace Apka2.Controllers
         [HttpPost]
         public async Task<ActionResult<Law>> PostLaw(Law law)
         {
+            if (law.DateEnd < DateTime.Today)
+                return BadRequest("Data zakonczenia musi być puzniejsza");
+
+
             var temp = new Law
             {
                 Name = law.Name,

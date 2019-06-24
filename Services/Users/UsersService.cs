@@ -64,7 +64,9 @@ namespace Apka2.Services
             //User entity = new User();
             //entity.LastName = user.LastName;
 
-            //TODO dododac zabezpieczenie
+            //var temp = await _usersRepository.AddAsync(user);
+            //if (temp == null)
+            //    return null;
 
             user.Role = RoleNames.User;
             var registeredUser = (await _usersRepository.AddAsync(user));

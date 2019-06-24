@@ -11,12 +11,16 @@ import {
   Label
 } from "reactstrap";
 
-import { authenticationService } from "../services/authentication.service";
+const Colors = Object.freeze({
+  0: Symbol("Zgadzam"),
+  1: Symbol("Nie zgadzam"),
+  2: Symbol("Wstrzymuje się")
+});
 
-export const VOTE_TYPES = {
-  Accept: "Zgadzam",
-  Decline: "Nie zgadzam",
-  None: "Wstrzymuje się"
+const Color = {
+  RED: 0,
+  GREEN: 1,
+  BLUE: 2
 };
 
 export class HistoryResult extends Component {
@@ -36,6 +40,19 @@ export class HistoryResult extends Component {
     });
   }
 
+  renderSwitch(param) {
+    switch (param) {
+      case 0:
+        return "Wdrożenie";
+      case 1:
+        return "Nie wdrażamy";
+      case 2:
+        return "Ponowne Głosowanie";
+      default:
+        return "foo";
+    }
+  }
+
   render() {
     let laws = this.state.laws.map(law => {
       return (
@@ -46,7 +63,7 @@ export class HistoryResult extends Component {
           <td>{law.accept}</td>
           <td>{law.decline}</td>
           <td>{law.none}</td>
-          <td>{law.winer}</td>
+          <td> {this.renderSwitch(law.winer)}</td>
           <td />
         </tr>
       );

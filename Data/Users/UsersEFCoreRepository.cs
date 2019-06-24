@@ -31,7 +31,13 @@ namespace Apka2.Data.Users
 
         public async Task<User> AddAsync(User user)
         {
-            //FluentValidation
+            var temp = await _context.Users.FirstOrDefaultAsync(x => x.Username == user.Username);
+
+            if (temp != null)
+                return null;
+            //TODO FluentValidation
+
+
             User addedUser;
             addedUser = (await _context.Users.AddAsync(user)).Entity;
             await _context.SaveChangesAsync();

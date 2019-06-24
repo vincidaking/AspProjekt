@@ -48,10 +48,18 @@ namespace Apka2.Controllers
 
         [AllowAnonymous]
         [HttpPost("registred")]
-        public async Task<User> Registred([FromBody]User userParam)
+        public async Task<ActionResult<User>> Registred([FromBody]User userParam)
         {
+            //if (_userService.RegisterAsync(userParam) == null)
+            //    return BadRequest("Uzytkownik o takim email istnieje");
+
+
             var registeredUser = await _userService.RegisterAsync(userParam);
-            return registeredUser;
+
+            if (registeredUser == null)
+                return BadRequest("Uzytkownik o takim email istnieje");
+            else
+                return Ok();
 
         }
 

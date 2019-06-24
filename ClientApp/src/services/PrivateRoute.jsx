@@ -14,6 +14,7 @@ export const PrivateRoute = ({ component: Component, roles, ...rest }) => (
           <Redirect
             to={{ pathname: "/login", state: { from: props.location } }}
           />
+          //<PrivateRoute exact path="/login" component={LawPageUser} />
         );
       }
       // decode(currentUser.token)[Jwt.Token]

@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using Apka2.Data;
 using Apka2.ViewModel;
 using Apka2.Model;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Apka2.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class VotesController : ControllerBase
@@ -25,13 +27,15 @@ namespace Apka2.Controllers
         [HttpPost]
         public async Task<ActionResult<VoteFromReact>> PostVoteFromReact(VoteFromReact voteFromReact)
         {
+
+
             var lawOriginal = _context.Laws.FirstOrDefault(x => x.Id == voteFromReact.id);
             if (lawOriginal == null)
-                return NotFound("Nie istnieje Law o podanym Id");
+                return BadRequest("Nie istnieje Law o podanym Id");
 
             var userOriginal = _context.Users.FirstOrDefault(x => x.Username == voteFromReact.username);
             if (lawOriginal == null)
-                return NotFound("Nie isntnieje User o podanym Username");
+                return BadRequest("Nie isntnieje User o podanym Username");
 
             var alreadyVoted = _context.Votes.FirstOrDefault(x => x.User.Id == userOriginal.Id && x.Law == lawOriginal);
             if (alreadyVoted!=null)
@@ -46,8 +50,8 @@ namespace Apka2.Controllers
 
             _context.Votes.Add(temp);
             await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetVoteFromReact", new { id = voteFromReact.id }, voteFromReact);
+            return Ok();
+            //return CreatedAtAction("GetVoteFromReact", new { id = voteFromReact.id }, voteFromReact);
         }
 
 
@@ -56,8 +60,8 @@ namespace Apka2.Controllers
         {
 
             var listResult = new List<HistoryResult>();
-            var listLaws = await _context.Laws.ToListAsync();
-           // var listLaws = await _context.Laws.Where(x=>x.DateEnd<= DateTime.Today).ToListAsync();
+            //var listLaws = await _context.Laws.ToListAsync();
+            var listLaws = await _context.Laws.Where(x=>x.DateEnd<= DateTime.Today).ToListAsync();
             //var voteList = await _context.Votes.ToArrayAsync();
 
 
@@ -70,11 +74,14 @@ namespace Apka2.Controllers
                 var tempNone = voteList.Where(x => x.VoteType == VoteType.None).Count();
 
                 var tempWiner = new VoteType();
-                var max = new List<int> { tempAccept, tempDecline, tempNone };
 
-                if (tempAccept == max.Max()) tempWiner = VoteType.Accept;
-                if (tempAccept == max.Max()) tempWiner = VoteType.Decline;
+                var max = new List<int> { tempAccept, tempDecline, tempNone }.Max();
+
+                if (tempAccept == max && tempDecline == max) tempWiner = VoteType.None;
+                else if (tempAccept == max) tempWiner = VoteType.Accept;
+                else if (tempDecline == max) tempWiner = VoteType.Decline;
                 else tempWiner = VoteType.None;
+
 
 
                 var result = new HistoryResult
@@ -92,11 +99,7 @@ namespace Apka2.Controllers
            
            
 
-            
-
-
-
-
+         
             return listResult.ToList();
         }
 
