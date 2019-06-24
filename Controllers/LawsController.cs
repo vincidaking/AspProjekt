@@ -64,7 +64,7 @@ namespace Apka2.Controllers
                 throw new Exception("Nie istnieje ustawa o takim Id");
 
             if(law.DateEnd<DateTime.Today)
-                return BadRequest("Data zakonczenia musi być puzniejsza");
+                return BadRequest("Data zakonczenia musi być pózniejsza");
 
             _context.Entry(law).State = EntityState.Modified;
 

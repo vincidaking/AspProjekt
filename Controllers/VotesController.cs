@@ -61,7 +61,7 @@ namespace Apka2.Controllers
 
             var listResult = new List<HistoryResult>();
             //var listLaws = await _context.Laws.ToListAsync();
-            var listLaws = await _context.Laws.Where(x=>x.DateEnd<= DateTime.Today).ToListAsync();
+            var listLaws = await _context.Laws.Where(x=>x.DateEnd< DateTime.Today).ToListAsync();
             //var voteList = await _context.Votes.ToArrayAsync();
 
 
@@ -111,7 +111,7 @@ namespace Apka2.Controllers
 
             var LawsList = await _context.Laws.ToListAsync();
 
-            var ListWithoutOptions = _context.Votes.Where(x => x.User.Id == userOrginal.Id).ToList();
+            var ListWithoutOptions = _context.Votes.Where(x => x.User.Id == userOrginal.Id && x.Law.DateEnd<DateTime.Today).ToList();
 
             var ListOut = new List<UserLawsVoted>();
 
@@ -144,8 +144,8 @@ namespace Apka2.Controllers
 
             var LawsList = await _context.Laws.Where(x=>x.DateEnd>DateTime.Today).ToListAsync();
 
-            //var ListWithOption = await _context.Votes.ToListAsync();
-            //TODO dodanie viewmodelu z wybrtana opcja na ktora sie zaglosowalo
+            
+           
 
 
             var LawListWithOption = new List<Law>();
