@@ -1,10 +1,25 @@
 import React, { Component } from "react";
 import axios from "../helpers/axios.api";
-import { Table } from "reactstrap";
+import {
+  Table,
+  Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  FormGroup,
+  Label
+} from "reactstrap";
 
 import { authenticationService } from "../services/authentication.service";
 
-export class LawPageUserVotedLaws extends Component {
+export const VOTE_TYPES = {
+  Accept: "Zgadzam",
+  Decline: "Nie zgadzam",
+  None: "Wstrzymuje się"
+};
+
+export class HistoryResult extends Component {
   state = {
     laws: []
   };
@@ -14,16 +29,11 @@ export class LawPageUserVotedLaws extends Component {
   }
 
   _refreshLaw() {
-    axios
-      .get(
-        "api/Laws/withoutOptionVote/" +
-          authenticationService.currentUserValue.username
-      )
-      .then(response => {
-        this.setState({
-          laws: response.data
-        });
+    axios.get("api/Votes/HistoryResult/").then(response => {
+      this.setState({
+        laws: response.data
       });
+    });
   }
 
   render() {
@@ -32,8 +42,12 @@ export class LawPageUserVotedLaws extends Component {
         <tr key={law.id}>
           <td>{law.name}</td>
           <td>{law.lawText}</td>
-          <td>{law.dateAdd}</td>
           <td>{law.dateEnd}</td>
+          <td>{law.accept}</td>
+          <td>{law.decline}</td>
+          <td>{law.none}</td>
+          <td>{law.winer}</td>
+          <td />
         </tr>
       );
     });
@@ -46,8 +60,12 @@ export class LawPageUserVotedLaws extends Component {
               <th>Nazwa</th>
 
               <th>Tresc</th>
-              <th>Data Dodania</th>
+
               <th>Data Konca</th>
+              <th>Zgadzam</th>
+              <th>Nie zgadzam</th>
+              <th>Wstrzymuje się</th>
+              <th>Werdykt</th>
             </tr>
           </thead>
           <tbody>{laws}</tbody>
@@ -56,4 +74,4 @@ export class LawPageUserVotedLaws extends Component {
     );
   }
 }
-export default LawPageUserVotedLaws;
+export default HistoryResult;

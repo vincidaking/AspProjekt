@@ -26,8 +26,6 @@ namespace Apka2.Controllers
 
         // GET: api/Laws
 
-
-
         [HttpGet("withOptionVote/{username}")]
         public async Task<ActionResult<IEnumerable<Law>>> GetLawsWithVote(string username)
         {
@@ -111,17 +109,18 @@ namespace Apka2.Controllers
             return ListOut.ToList();
         }
 
+
+
+       
+
+
+        [Authorize(Roles = RoleNames.Admin)]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Law>>> GetLawsWithoutVote()
+        public async Task<ActionResult<IEnumerable<Law>>> GetLaws()
         {
 
             return await _context.Laws.ToListAsync();
         }
-
-
-
-
-
 
         // GET: api/Laws/5
         [HttpGet("{id}")]

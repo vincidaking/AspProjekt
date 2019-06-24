@@ -9,6 +9,7 @@ import { Row, Jumbotron, Col } from "reactstrap";
 import { LawPage } from "./components/LawPage";
 import { LawPageUser } from "./components/LawPageUser";
 import { LawPageUserVotedLaws } from "./components/LawPageUserVotedLaws";
+import { HistoryResult } from "./components/HistoryResult";
 import { UserPage } from "./components/UserPage";
 import LoginPage from "./components/LoginPage";
 
@@ -60,6 +61,10 @@ export class App extends Component {
                   </Link>
                 )}
 
+                <Link to="/HistoryResult" className="nav-item nav-link">
+                  Wyniki
+                </Link>
+
                 {isAdmin && (
                   <Link to="/userpage" className="nav-item nav-link">
                     Użytkownicy
@@ -81,6 +86,11 @@ export class App extends Component {
                   exact
                   path="/LawPageUserVotedLaws"
                   component={LawPageUserVotedLaws}
+                />
+                <PrivateRoute
+                  exact
+                  path="/HistoryResult"
+                  component={HistoryResult}
                 />
 
                 {/* <PrivateRoute exact path="/lawpage" component={LawPageUser} roles={[Role.Admin]} /> */}

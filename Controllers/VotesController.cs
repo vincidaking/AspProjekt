@@ -51,6 +51,56 @@ namespace Apka2.Controllers
         }
 
 
-       
+        [HttpGet("HistoryResult")]
+        public async Task<ActionResult<IEnumerable<HistoryResult>>> HistoryResult()
+        {
+
+            var listResult = new List<HistoryResult>();
+            var listLaws = await _context.Laws.ToListAsync();
+           // var listLaws = await _context.Laws.Where(x=>x.DateEnd<= DateTime.Today).ToListAsync();
+            //var voteList = await _context.Votes.ToArrayAsync();
+
+
+            foreach (var item in listLaws)
+            {
+                var voteList =  _context.Votes.Where(x=>x.Law.Id==item.Id).ToList();
+
+                var tempAccept = voteList.Where(x => x.VoteType == VoteType.Accept).Count();
+                var tempDecline = voteList.Where(x => x.VoteType == VoteType.Decline).Count();
+                var tempNone = voteList.Where(x => x.VoteType == VoteType.None).Count();
+
+                var tempWiner = new VoteType();
+                var max = new List<int> { tempAccept, tempDecline, tempNone };
+
+                if (tempAccept == max.Max()) tempWiner = VoteType.Accept;
+                if (tempAccept == max.Max()) tempWiner = VoteType.Decline;
+                else tempWiner = VoteType.None;
+
+
+                var result = new HistoryResult
+                {
+                    Name=item.Name,
+                    LawText=item.LawText,
+                    DateEnd=item.DateEnd,
+                    Accept=tempAccept,
+                    Decline= tempDecline,
+                    None = tempNone,
+                    Winer = tempWiner
+                };
+                listResult.Add(result);
+            }
+           
+           
+
+            
+
+
+
+
+            return listResult.ToList();
+        }
+
+
+
     }
 }
