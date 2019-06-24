@@ -63,6 +63,9 @@ namespace Apka2.Services
             //var entity = _mapper.Map<User>(user);
             //User entity = new User();
             //entity.LastName = user.LastName;
+
+            //TODO dododac zabezpieczenie
+
             user.Role = RoleNames.User;
             var registeredUser = (await _usersRepository.AddAsync(user));
             return registeredUser;

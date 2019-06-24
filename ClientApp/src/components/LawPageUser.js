@@ -36,11 +36,16 @@ export class LawPageUser extends Component {
   }
 
   _refreshLaw() {
-    axios.get("api/Laws").then(response => {
-      this.setState({
-        laws: response.data
+    axios
+      .get(
+        "api/Laws/withOptionVote/" +
+          authenticationService.currentUserValue.username
+      )
+      .then(response => {
+        this.setState({
+          laws: response.data
+        });
       });
-    });
   }
 
   addVote() {

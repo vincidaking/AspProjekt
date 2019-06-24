@@ -117,7 +117,7 @@ export class LawPage extends Component {
     //   const laws = res.data;
     //   this.setState({ laws });
     // });
-    axios.get("api/Laws").then(response => {
+    axios.get("api/Laws/").then(response => {
       this.setState({
         laws: response.data
       });
@@ -273,7 +273,7 @@ export class LawPage extends Component {
                 }}
               />
             </FormGroup>
-            <FormGroup>
+            {/* <FormGroup>
               <Label for="dateAdd">Data</Label>
               <Input
                 id="dateAdd"
@@ -285,7 +285,7 @@ export class LawPage extends Component {
                   this.setState({ editLawsData });
                 }}
               />
-            </FormGroup>
+            </FormGroup> */}
             <FormGroup>
               <Label for="dateEnd">Data</Label>
               <Input

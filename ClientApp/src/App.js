@@ -1,15 +1,16 @@
 import { Router, Route, Link } from "react-router-dom";
 import React, { Component } from "react";
-import { LawPage } from "./components/LawPage";
-import { LawPageUser } from "./components/LawPageUser";
-import { UserPage } from "./components/UserPage";
 import history from "./services/history";
 import Role from "./services/role";
 import PrivateRoute from "./services/PrivateRoute";
 import { authenticationService } from "./services/authentication.service";
-import LoginPage from "./components/LoginPage";
-
 import { Row, Jumbotron, Col } from "reactstrap";
+
+import { LawPage } from "./components/LawPage";
+import { LawPageUser } from "./components/LawPageUser";
+import { LawPageUserVotedLaws } from "./components/LawPageUserVotedLaws";
+import { UserPage } from "./components/UserPage";
+import LoginPage from "./components/LoginPage";
 
 export class App extends Component {
   constructor(props) {
@@ -45,6 +46,14 @@ export class App extends Component {
                     Ustway
                   </Link>
                 )}
+                {!isAdmin && (
+                  <Link
+                    to="/LawPageUserVotedLaws"
+                    className="nav-item nav-link"
+                  >
+                    Oddany głos
+                  </Link>
+                )}
                 {isAdmin && (
                   <Link to="/lawpage" className="nav-item nav-link">
                     Ustway
@@ -68,6 +77,11 @@ export class App extends Component {
               <Col xd="3" />
               <Col xs="auto">
                 <PrivateRoute exact path="/" component={LawPageUser} />
+                <PrivateRoute
+                  exact
+                  path="/LawPageUserVotedLaws"
+                  component={LawPageUserVotedLaws}
+                />
 
                 {/* <PrivateRoute exact path="/lawpage" component={LawPageUser} roles={[Role.Admin]} /> */}
 
