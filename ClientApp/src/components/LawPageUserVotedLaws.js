@@ -12,11 +12,22 @@ export class LawPageUserVotedLaws extends Component {
   componentWillMount() {
     this._refreshLaw();
   }
-
+  renderSwitch(param) {
+    switch (param) {
+      case 0:
+        return "Tak";
+      case 1:
+        return "Nie";
+      case 2:
+        return "Nie wiem";
+      default:
+        return "foo";
+    }
+  }
   _refreshLaw() {
     axios
       .get(
-        "api/Laws/withoutOptionVote/" +
+        "api/Votes/withoutOptionVote/" +
           authenticationService.currentUserValue.username
       )
       .then(response => {
@@ -34,6 +45,7 @@ export class LawPageUserVotedLaws extends Component {
           <td>{law.lawText}</td>
           <td>{law.dateAdd}</td>
           <td>{law.dateEnd}</td>
+          <td>{this.renderSwitch(law.voteType)}</td>
         </tr>
       );
     });
@@ -48,6 +60,7 @@ export class LawPageUserVotedLaws extends Component {
               <th>Tresc</th>
               <th>Data Dodania</th>
               <th>Data Konca</th>
+              <th>Głos</th>
             </tr>
           </thead>
           <tbody>{laws}</tbody>

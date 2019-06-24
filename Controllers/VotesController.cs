@@ -103,7 +103,88 @@ namespace Apka2.Controllers
             return listResult.ToList();
         }
 
+        [HttpGet("withoutOptionVote/{username}")]
+        public async Task<ActionResult<IEnumerable<UserLawsVoted>>> GetLawsWithoutVote(string username)
+        {
 
+            var userOrginal = await _context.Users.FirstOrDefaultAsync(x => x.Username == username);
+
+            var LawsList = await _context.Laws.ToListAsync();
+
+            var ListWithoutOptions = _context.Votes.Where(x => x.User.Id == userOrginal.Id).ToList();
+
+            var ListOut = new List<UserLawsVoted>();
+
+            foreach (var item in ListWithoutOptions)
+            {
+                var temp = new UserLawsVoted
+                {
+                    Id = item.Law.Id,
+                    Name = item.Law.Name,
+                    LawText = item.Law.LawText,
+                    DateAdd = item.Law.DateAdd,
+                    DateEnd = item.Law.DateEnd,
+                    VoteType = item.VoteType
+                };
+
+                ListOut.Add(temp);
+
+            }
+
+
+
+            return ListOut.ToList();
+        }
+
+        [HttpGet("withOptionVote/{username}")]
+        public async Task<ActionResult<IEnumerable<Law>>> GetLawsWithVote(string username)
+        {
+
+            var userOrginal = await _context.Users.FirstOrDefaultAsync(x => x.Username == username);
+
+            var LawsList = await _context.Laws.ToListAsync();
+
+            //var ListWithOption = await _context.Votes.ToListAsync();
+            //TODO dodanie viewmodelu z wybrtana opcja na ktora sie zaglosowalo
+
+
+            var LawListWithOption = new List<Law>();
+
+            foreach (var item in LawsList)
+            {
+                if (_context.Votes.FirstOrDefault(x => x.User.Id == userOrginal.Id && x.Law.Id == item.Id) == null)
+                    LawListWithOption.Add(item);
+
+            }
+
+
+            var ListOut = new List<Law>();
+
+            foreach (var item in LawListWithOption)
+            {
+                var temp = new Law
+                {
+                    Id = item.Id,
+                    Name = item.Name,
+                    LawText = item.LawText,
+                    DateAdd = item.DateAdd,
+                    DateEnd = item.DateEnd,
+                    Votes = null
+                };
+
+                ListOut.Add(temp);
+
+            }
+
+
+
+
+
+            return ListOut.ToList();
+
+
+
+        }
 
     }
 }

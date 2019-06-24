@@ -38,7 +38,7 @@ export class LawPageUser extends Component {
   _refreshLaw() {
     axios
       .get(
-        "api/Laws/withOptionVote/" +
+        "api/Votes/withOptionVote/" +
           authenticationService.currentUserValue.username
       )
       .then(response => {
