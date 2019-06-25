@@ -1,8 +1,11 @@
+
 using Apka2.Data;
 using Apka2.Data.Users;
 using Apka2.Model;
 using Apka2.Services;
 using Apka2.Services.Users;
+using DinkToPdf;
+using DinkToPdf.Contracts;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,7 +14,13 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using RazorLight;
+using System;
+using System.IO;
+using System.Reflection;
 using System.Text;
+
+
 
 namespace Apka2
 {
@@ -27,11 +36,20 @@ namespace Apka2
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            
 
+
+            //////////////////////////////////////
             services.AddCors();
+            
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDbContext<Context>();
-                
+
+            //pdf
+
+            
+
+
 
             // configure strongly typed settings objects
             var appSettingsSection = Configuration.GetSection("AppSettings");
@@ -66,8 +84,15 @@ namespace Apka2
                 configuration.RootPath = "ClientApp/build";
             });
 
+
+
+          
+
+
             services.AddScoped<IUsersService, UsersService>();
             services.AddScoped<IUsersRepository, UsersEFCoreRepository>();
+         
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -107,6 +132,7 @@ namespace Apka2
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });
+            
         }
     }
 }

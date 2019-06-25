@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -29,10 +30,27 @@ namespace Apka2.Services
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
                 return null;
 
-            var user = await _usersRepository
-                .GetAsync(username, password);
-
+            var user = await _usersRepository.GetUsername(username);
             if (user == null) return null;
+
+            byte[] hashBytes = Convert.FromBase64String(user.Password);
+
+            byte[] salt = new byte[16];
+
+            Array.Copy(hashBytes, 0, salt, 0, 16);
+
+            var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 10000);
+            byte[] hash = pbkdf2.GetBytes(20);
+
+
+            for (int i = 0; i < 20; i++)
+                if (hashBytes[i + 16] != hash[i])
+                    return null;
+
+
+            //var user = await _usersRepository
+            //    .GetAsync(username, password);
+            //if (user == null) return null;
 
             // authentication successful so generate jwt token
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -59,21 +77,35 @@ namespace Apka2.Services
             return user;
         }
 
+        
+
+        public string HashPassword(string password)
+        {
+            byte[] salt;
+            new RNGCryptoServiceProvider().GetBytes(salt = new byte[16]);
+
+            var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 10000);
+            byte[] hash = pbkdf2.GetBytes(20);
+
+            byte[] hashBytes = new byte[36];
+            Array.Copy(salt, 0, hashBytes, 0, 16);
+            Array.Copy(hash, 0, hashBytes, 16, 20);
+
+            string savedPasswordHash = Convert.ToBase64String(hashBytes);
+
+            return savedPasswordHash;
+            
+        }
 
         public async Task<User> RegisterAsync(User user)
         {
-            //mappowanie na entity
-            //var entity = _mapper.Map<User>(user);
-            //User entity = new User();
-            //entity.LastName = user.LastName;
-
-            //var temp = await _usersRepository.AddAsync(user);
-            //if (temp == null)
-            //    return null;
+           
 
             user.Role = RoleNames.User;
+            user.Password = HashPassword(user.Password);
             var registeredUser = (await _usersRepository.AddAsync(user));
             return registeredUser;
         }
+
     }
 }

@@ -11,5 +11,8 @@ namespace Apka2.Data.Users
         Task<User> AddAsync(User user);
         Task<User> UpdateAsync(User user);
         Task DeleteAsync(int id);
+        Task<User> GetUsername(string username);
+
+
     }
 }

@@ -2,6 +2,7 @@
 using Apka2.Model;
 using Microsoft.EntityFrameworkCore;
 using Apka2.ViewModel;
+using Apka2.Services.Users;
 
 namespace Apka2.Data
 {
@@ -10,8 +11,11 @@ namespace Apka2.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Law> Laws { get; set; }
         public DbSet<Model.Vote> Votes { get; set; }
+
+        
         
 
+        
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -27,7 +31,8 @@ namespace Apka2.Data
                 FirstName = "SA",
                 LastName = "SA",
                 Username = "admin",
-                Password = "admin",
+                
+                Password = "lOaMF0Sbcf/4RpDWzLAtX8+9DPGn4x/RcvVodFSUJsri97GO",
                 Role = RoleNames.Admin,
             });
 
@@ -59,15 +64,6 @@ namespace Apka2.Data
             modelBuilder.Entity<Model.Vote>()
                 .HasOne(x => x.User)
                 .WithMany(c => c.Votes);
-
-
-
-
-            
-
-
-
-
 
         }
 

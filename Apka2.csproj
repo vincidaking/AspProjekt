@@ -20,7 +20,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
-    <PackageReference Include="PDFsharpNetStandard2" Version="1.51.4845" />
+    <PackageReference Include="RazorLight" Version="2.0.0-beta1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,6 +37,10 @@
     <Compile Remove="Migrations\20190621182542_Vote_MenyToMEny_v4.Designer.cs" />
     <Compile Remove="Migrations\20190625074845_remove_token_user.cs" />
     <Compile Remove="Migrations\20190625074845_remove_token_user.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="PDFNative\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

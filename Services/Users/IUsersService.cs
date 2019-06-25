@@ -8,5 +8,11 @@ namespace Apka2.Services.Users
     {
         Task<User> AuthenticateAsync(string username, string password);
         Task<User> RegisterAsync(User user);
+        
+
+        string HashPassword(string password);
+        
+
+
     }
 }

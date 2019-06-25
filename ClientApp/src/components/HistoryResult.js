@@ -11,9 +11,12 @@ import {
   Label
 } from "reactstrap";
 
+import authenticationService from "../services/authentication.service";
+
 export class HistoryResult extends Component {
   state = {
-    laws: []
+    laws: [],
+    authenticationService
   };
 
   componentWillMount() {
