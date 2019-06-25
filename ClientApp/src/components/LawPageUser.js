@@ -57,9 +57,8 @@ export class LawPageUser extends Component {
           voteTypeId: ""
         }
       });
+      this._refreshLaw();
     });
-
-    //this._refreshLaw();
   }
 
   render() {

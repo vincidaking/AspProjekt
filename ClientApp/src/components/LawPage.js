@@ -83,7 +83,7 @@ export class LawPage extends Component {
         }
       });
 
-      //this._refreshLaw();
+      this._refreshLaw();
     });
   }
 
