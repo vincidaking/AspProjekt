@@ -86,8 +86,8 @@ namespace Apka2.Controllers
             {
                 Name = law.Name,
                 LawText = law.LawText,
-                DateAdd = DateTime.Today,
-                DateEnd = law.DateEnd
+                DateAdd = DateTime.UtcNow,
+                DateEnd = law.DateEnd.AddDays(1).AddMilliseconds(-1)
             };
 
 

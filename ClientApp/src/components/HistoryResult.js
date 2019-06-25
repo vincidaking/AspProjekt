@@ -11,18 +11,6 @@ import {
   Label
 } from "reactstrap";
 
-const Colors = Object.freeze({
-  0: Symbol("Zgadzam"),
-  1: Symbol("Nie zgadzam"),
-  2: Symbol("Wstrzymuje się")
-});
-
-const Color = {
-  RED: 0,
-  GREEN: 1,
-  BLUE: 2
-};
-
 export class HistoryResult extends Component {
   state = {
     laws: []

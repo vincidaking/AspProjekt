@@ -52,6 +52,8 @@ namespace Apka2.Migrations
 
                     b.Property<string>("Role");
 
+                    b.Property<string>("Token");
+
                     b.Property<string>("Username");
 
                     b.HasKey("Id");
@@ -89,21 +91,6 @@ namespace Apka2.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Votes");
-                });
-
-            modelBuilder.Entity("Apka2.ViewModel.VoteFromReact", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("username");
-
-                    b.Property<int>("voteTypeId");
-
-                    b.HasKey("id");
-
-                    b.ToTable("VoteFromReact");
                 });
 
             modelBuilder.Entity("Apka2.Model.Vote", b =>

@@ -111,7 +111,7 @@ namespace Apka2.Controllers
 
             var LawsList = await _context.Laws.ToListAsync();
 
-            var ListWithoutOptions = _context.Votes.Where(x => x.User.Id == userOrginal.Id && x.Law.DateEnd<DateTime.Today).ToList();
+            var ListWithoutOptions = _context.Votes.Where(x => x.User.Id == userOrginal.Id && x.Law.DateEnd>DateTime.Today).ToList();
 
             var ListOut = new List<UserLawsVoted>();
 

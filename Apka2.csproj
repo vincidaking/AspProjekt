@@ -35,6 +35,8 @@
     <Compile Remove="Migrations\20190621131536_Vote1.Designer.cs" />
     <Compile Remove="Migrations\20190621182542_Vote_MenyToMEny_v4.cs" />
     <Compile Remove="Migrations\20190621182542_Vote_MenyToMEny_v4.Designer.cs" />
+    <Compile Remove="Migrations\20190625074845_remove_token_user.cs" />
+    <Compile Remove="Migrations\20190625074845_remove_token_user.Designer.cs" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

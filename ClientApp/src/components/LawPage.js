@@ -83,7 +83,7 @@ export class LawPage extends Component {
         }
       });
 
-      //this._refreshLaw();
+      this._refreshLaw();
     });
   }
 
@@ -207,7 +207,7 @@ export class LawPage extends Component {
                 }}
               />
             </FormGroup>
-            <FormGroup>
+            {/* <FormGroup>
               <Label for="dateAdd">Data Dodania</Label>
               <Input
                 id="dateAdd"
@@ -220,7 +220,7 @@ export class LawPage extends Component {
                   this.setState({ newLawsData });
                 }}
               />
-            </FormGroup>
+            </FormGroup> */}
             <FormGroup>
               <Label for="dateEnd">Data Konca</Label>
               <Input
@@ -231,6 +231,7 @@ export class LawPage extends Component {
                 onChange={e => {
                   let { newLawsData } = this.state;
                   newLawsData.dateEnd = e.target.value;
+                  newLawsData.dateAdd = e.target.value;
                   this.setState({ newLawsData });
                 }}
               />
