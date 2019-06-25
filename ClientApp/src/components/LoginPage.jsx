@@ -18,7 +18,7 @@ export class LoginPage extends React.Component {
     return (
       <div>
         <div className="alert alert-info">
-          <strong>Administrator</strong> - U: admin P: admin
+          <strong>Administrator</strong> - U: admin@admin.pl P: admin
         </div>
         <h2>Logowanie</h2>
         <Formik

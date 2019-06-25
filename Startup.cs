@@ -4,8 +4,10 @@ using Apka2.Data.Users;
 using Apka2.Model;
 using Apka2.Services;
 using Apka2.Services.Users;
+using Apka2.Services.Validators;
 using DinkToPdf;
 using DinkToPdf.Contracts;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -42,7 +44,11 @@ namespace Apka2
             //////////////////////////////////////
             services.AddCors();
             
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc(setup=>setup.Filters.Add(typeof(ValidatorActionFilter))
+                
+                )
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
             services.AddDbContext<Context>();
 
             //pdf

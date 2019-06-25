@@ -30,7 +30,7 @@ namespace Apka2.Data
                 Id = 1,
                 FirstName = "SA",
                 LastName = "SA",
-                Username = "admin",
+                Username = "admin@admin.pl",
                 
                 Password = "lOaMF0Sbcf/4RpDWzLAtX8+9DPGn4x/RcvVodFSUJsri97GO",
                 Role = RoleNames.Admin,
