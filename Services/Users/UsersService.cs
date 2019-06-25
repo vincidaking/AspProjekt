@@ -78,6 +78,7 @@ namespace Apka2.Services
             //TODO resetowanie hasła
             //TODO ładniejszy wygląd 
             //TODO przeladowywanie tokena
+            //TODO ogarnac zabezpieczenie dla VoteType
             return user;
         }
 

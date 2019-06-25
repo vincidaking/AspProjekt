@@ -198,6 +198,7 @@ export class LawPage extends Component {
               <Label for="lawText">Tresc</Label>
               <Input
                 id="lawText"
+                type="textarea"
                 placeholder="Podaj Tresc"
                 value={this.state.newLawsData.lawText}
                 onChange={e => {
@@ -207,7 +208,7 @@ export class LawPage extends Component {
                 }}
               />
             </FormGroup>
-            <FormGroup>
+            {/* <FormGroup>
               <Label for="dateAdd">Data Dodania</Label>
               <Input
                 id="dateAdd"
@@ -220,7 +221,7 @@ export class LawPage extends Component {
                   this.setState({ newLawsData });
                 }}
               />
-            </FormGroup>
+            </FormGroup> */}
             <FormGroup>
               <Label for="dateEnd">Data Konca</Label>
               <Input
@@ -230,6 +231,7 @@ export class LawPage extends Component {
                 value={this.state.newLawsData.dateEnd}
                 onChange={e => {
                   let { newLawsData } = this.state;
+                  newLawsData.dateAdd = e.target.value;
                   newLawsData.dateEnd = e.target.value;
                   this.setState({ newLawsData });
                 }}
@@ -268,6 +270,7 @@ export class LawPage extends Component {
               <Label for="lawText">Tresc</Label>
               <Input
                 id="lawText"
+                type="textarea"
                 value={this.state.editLawsData.lawText}
                 onChange={e => {
                   let { editLawsData } = this.state;

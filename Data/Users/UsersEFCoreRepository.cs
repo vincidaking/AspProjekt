@@ -43,7 +43,7 @@ namespace Apka2.Data.Users
 
             if (temp != null)
                 return null;
-            //TODO FluentValidation
+           
 
 
             User addedUser;
@@ -54,7 +54,7 @@ namespace Apka2.Data.Users
 
         public async Task<User> UpdateAsync(User user)
         {
-            //FluentValidation
+            
 
             var original = await _context.Users.AsNoTracking().SingleOrDefaultAsync(x => x.Id == user.Id);
             if (original == null)

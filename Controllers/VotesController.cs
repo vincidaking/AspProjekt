@@ -27,7 +27,7 @@ namespace Apka2.Controllers
         [HttpPost]
         public async Task<ActionResult<VoteFromReact>> PostVoteFromReact(VoteFromReact voteFromReact)
         {
-
+            
 
             var lawOriginal = _context.Laws.FirstOrDefault(x => x.Id == voteFromReact.id);
             if (lawOriginal == null)
