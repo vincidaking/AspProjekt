@@ -142,7 +142,7 @@ namespace Apka2.Controllers
 
             var userOrginal = await _context.Users.FirstOrDefaultAsync(x => x.Username == username);
 
-            var LawsList = await _context.Laws.ToListAsync();
+            var LawsList = await _context.Laws.Where(x=>x.DateEnd>DateTime.Today).ToListAsync();
 
             //var ListWithOption = await _context.Votes.ToListAsync();
             //TODO dodanie viewmodelu z wybrtana opcja na ktora sie zaglosowalo

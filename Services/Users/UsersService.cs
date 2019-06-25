@@ -48,10 +48,13 @@ namespace Apka2.Services
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
-            user.Token = tokenHandler.WriteToken(token);
+            //user.Token = tokenHandler.WriteToken(token);
 
             // remove password before returning
             user.Password = null;
+
+
+            //TODO hostes services
 
             return user;
         }
