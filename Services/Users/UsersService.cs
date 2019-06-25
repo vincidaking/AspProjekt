@@ -72,8 +72,12 @@ namespace Apka2.Services
             user.Password = null;
 
 
-            //TODO hostes services
-
+            //TODO hostes services wysylanie emial
+            //TODO szczegoly jednej ustawy
+            //TODO drukowanie ustaw
+            //TODO resetowanie hasła
+            //TODO ładniejszy wygląd 
+            //TODO przeladowywanie tokena
             return user;
         }
 

@@ -67,6 +67,6 @@ namespace Apka2.Data
 
         }
 
-        public DbSet<Apka2.ViewModel.VoteFromReact> VoteFromReact { get; set; }
+        //public DbSet<Apka2.ViewModel.VoteFromReact> VoteFromReact { get; set; }
     }
 }

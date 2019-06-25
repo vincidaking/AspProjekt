@@ -48,14 +48,8 @@ export class LawPageUser extends Component {
       });
   }
 
-  refreshPage() {
-    window.location.reload();
-  }
-
   addVote() {
     axios.post("api/Votes/", this.state.newVoteData).then(response => {
-      let { laws } = this.state;
-      laws.push(response.data);
       this.setState({
         newVoteModel: false,
         newVoteData: {
@@ -63,8 +57,9 @@ export class LawPageUser extends Component {
           voteTypeId: ""
         }
       });
-      this._refreshLaw();
     });
+
+    //this._refreshLaw();
   }
 
   render() {
