@@ -131,6 +131,7 @@ export class RegisterPage extends Component {
                 }}
               />
             </FormGroup>
+            <div>Minimalna długość hasła: 6</div>
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={this.addUser.bind(this)}>

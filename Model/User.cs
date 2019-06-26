@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Apka2.Model
 {
@@ -12,6 +13,7 @@ namespace Apka2.Model
         public string Username { get; set; }
         public string Password { get; set; }
         public string Role { get; set; }
+        [NotMapped]
         public string Token { get; set; }
         public virtual ICollection<Vote> Votes { get; set; }
     }

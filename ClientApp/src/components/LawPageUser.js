@@ -14,6 +14,11 @@ import {
 import { authenticationService } from "../services/authentication.service";
 
 export class LawPageUser extends Component {
+  constructor() {
+    super();
+
+    this.toggleDataModel = this.toggleDataModel.bind(this);
+  }
   state = {
     laws: [],
     newVoteData: {
@@ -21,11 +26,26 @@ export class LawPageUser extends Component {
       username: "",
       voteTypeId: ""
     },
-    newVoteModel: false
+    LawsData: {
+      id: "",
+      name: "",
+      lawText: "",
+      dateAdd: "",
+      dateEnd: ""
+    },
+
+    newVoteModel: false,
+    dataModel: false
   };
 
   componentWillMount() {
     this._refreshLaw();
+  }
+
+  toggleDataModel() {
+    this.setState({
+      dataModel: !this.state.dataModel
+    });
   }
 
   toggleNewVoteModel(id) {
@@ -61,12 +81,19 @@ export class LawPageUser extends Component {
     });
   }
 
+  dataLaws(id, name, lawText, dateAdd, dateEnd) {
+    this.setState({
+      LawsData: { id, name, lawText, dateAdd, dateEnd },
+      dataModel: true
+    });
+  }
+
   render() {
     let laws = this.state.laws.map(law => {
       return (
         <tr key={law.id}>
           <td>{law.name}</td>
-          <td>{law.lawText}</td>
+          {/* <td>{law.lawText}</td> */}
           <td>{law.dateAdd}</td>
           <td>{law.dateEnd}</td>
           <td>
@@ -76,6 +103,19 @@ export class LawPageUser extends Component {
               onClick={this.toggleNewVoteModel.bind(this, law.id)}
             >
               Głosuj
+            </Button>{" "}
+            <Button
+              color="info"
+              onClick={this.dataLaws.bind(
+                this,
+                law.id,
+                law.name,
+                law.lawText,
+                law.dateAdd,
+                law.dateEnd
+              )}
+            >
+              Szczegóły
             </Button>
           </td>
         </tr>
@@ -126,12 +166,29 @@ export class LawPageUser extends Component {
           </ModalFooter>
         </Modal>
 
+        <Modal isOpen={this.state.dataModel}>
+          <ModalHeader>Nazwa ustawy: {this.state.LawsData.name}</ModalHeader>
+          <ModalBody>
+            Treść: <div>{this.state.LawsData.lawText}</div>
+            <div />
+            <div>
+              Data Dodania:<div> {this.state.LawsData.dateAdd}</div>
+              Data Konca:<div> {this.state.LawsData.dateAdd}</div>
+            </div>
+          </ModalBody>
+          <ModalFooter>
+            <Button color="secondary" onClick={this.toggleDataModel}>
+              Cancel
+            </Button>
+          </ModalFooter>
+        </Modal>
+
         <Table>
           <thead>
             <tr>
               <th>Nazwa</th>
 
-              <th>Tresc</th>
+              {/* <th>Tresc</th> */}
               <th>Data Dodania</th>
               <th>Data Konca</th>
               <th>Akcja</th>
