@@ -8,6 +8,9 @@ using Apka2.Data;
 using System.ComponentModel.DataAnnotations;
 using System;
 using Microsoft.AspNetCore.Authorization;
+using System.Net.Mail;
+using System.Text;
+using System.Net;
 
 namespace Apka2.Controllers
 {
@@ -26,9 +29,11 @@ namespace Apka2.Controllers
 
         // GET: api/Laws
 
-        
-            
-        [Authorize(Roles = RoleNames.Admin)]
+
+
+        //[Authorize(Roles = RoleNames.Admin)]
+        [AllowAnonymous]
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Law>>> GetLaws()
         {
@@ -37,7 +42,9 @@ namespace Apka2.Controllers
         }
 
         // GET: api/Laws/5
+        [AllowAnonymous]
         [HttpGet("{id}")]
+
         public async Task<ActionResult<Law>> GetLaw(int id)
         {
             var law = await _context.Laws.FindAsync(id);
@@ -63,7 +70,7 @@ namespace Apka2.Controllers
             if (original == null)
                 throw new Exception("Nie istnieje ustawa o takim Id");
 
-            if(law.DateEnd<DateTime.Today)
+            if (law.DateEnd < DateTime.Today)
                 return BadRequest("Data zakonczenia musi być pózniejsza");
 
             _context.Entry(law).State = EntityState.Modified;
@@ -79,8 +86,10 @@ namespace Apka2.Controllers
         public async Task<ActionResult<Law>> PostLaw(Law law)
         {
             if (law.DateEnd < DateTime.Today)
-                return BadRequest("Data zakonczenia musi być puzniejsza");
+                return BadRequest("Data zakonczenia musi być pózniejsza");
 
+
+            var userToEmail = _context.Users.Select(x => x.Username).ToList();
 
             var temp = new Law
             {
@@ -93,6 +102,44 @@ namespace Apka2.Controllers
 
             _context.Laws.Add(temp);
             await _context.SaveChangesAsync();
+
+
+
+            var credentials = new NetworkCredential("kamilonsz3@gmail.com", "euvictest");
+
+
+            var mail = new MailMessage()
+            {
+                From = new MailAddress("kamilonsz3@gmail.com"),
+                Subject = "Nowa Ustawa " + temp.Name,
+                Body = temp.LawText+" Masz czas do "+temp.DateEnd+" by zagłosować"
+            };
+
+
+            foreach (var item in userToEmail)
+            {
+                mail.To.Add(new MailAddress($"{item}"));
+
+            }
+
+            // Smtp client
+            var client = new System.Net.Mail.SmtpClient()
+            {
+                Port = 587,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Host = "smtp.gmail.com",
+                EnableSsl = true,
+                Credentials = credentials
+            };
+
+            // Send it...         
+            client.Send(mail);
+
+
+
+
+
 
             return CreatedAtAction("GetLaw", new { id = law.Id }, law);
         }

@@ -13,6 +13,10 @@ import {
 
 import { authenticationService } from "../services/authentication.service";
 
+import { PDFDownloadLink } from "@react-pdf/renderer";
+
+import PDF from "../services/PDF";
+
 export class LawPageUser extends Component {
   constructor() {
     super();
@@ -33,7 +37,6 @@ export class LawPageUser extends Component {
       dateAdd: "",
       dateEnd: ""
     },
-
     newVoteModel: false,
     dataModel: false
   };
@@ -116,6 +119,17 @@ export class LawPageUser extends Component {
               )}
             >
               Szczegóły
+            </Button>{" "}
+            <Button>
+              <PDFDownloadLink
+                Id={law.id}
+                document={<PDF Id={law.id} />}
+                fileName={law.name}
+              >
+                {({ blob, url, loading, error }) =>
+                  loading ? "Loading document..." : "PDF"
+                }
+              </PDFDownloadLink>
             </Button>
           </td>
         </tr>
@@ -169,11 +183,11 @@ export class LawPageUser extends Component {
         <Modal isOpen={this.state.dataModel}>
           <ModalHeader>Nazwa ustawy: {this.state.LawsData.name}</ModalHeader>
           <ModalBody>
-            Treść: <div>{this.state.LawsData.lawText}</div>
+            Treść: <text>{this.state.LawsData.lawText}</text>
             <div />
             <div>
               Data Dodania:<div> {this.state.LawsData.dateAdd}</div>
-              Data Konca:<div> {this.state.LawsData.dateAdd}</div>
+              Data Konca:<div> {this.state.LawsData.dateEnd}</div>
             </div>
           </ModalBody>
           <ModalFooter>

@@ -13,6 +13,21 @@ import { HistoryResult } from "./components/HistoryResult";
 import { UserPage } from "./components/UserPage";
 import LoginPage from "./components/LoginPage";
 
+import {
+  MDBNavbar,
+  MDBNavbarBrand,
+  MDBNavbarNav,
+  MDBNavItem,
+  MDBNavLink,
+  MDBNavbarToggler,
+  MDBCollapse,
+  MDBFormInline,
+  MDBDropdown,
+  MDBDropdownToggle,
+  MDBDropdownMenu,
+  MDBDropdownItem
+} from "mdbreact";
+
 export class App extends Component {
   constructor(props) {
     super(props);

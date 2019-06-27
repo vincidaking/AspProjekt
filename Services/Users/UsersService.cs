@@ -70,11 +70,7 @@ namespace Apka2.Services
 
             // remove password before returning
             user.Password = null;
-
-
-            //TODO hostes services wysylanie emial
-            //TODO szczegoly jednej ustawy
-            //TODO drukowanie ustaw
+                             
             //TODO resetowanie hasła
             //TODO ładniejszy wygląd 
             //TODO przeladowywanie tokena

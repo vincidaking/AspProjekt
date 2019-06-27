@@ -3,6 +3,7 @@ using Apka2.Data;
 using Apka2.Data.Users;
 using Apka2.Model;
 using Apka2.Services;
+using Apka2.Services.Email;
 using Apka2.Services.Users;
 using Apka2.Services.Validators;
 using DinkToPdf;
@@ -51,9 +52,9 @@ namespace Apka2
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
             services.AddDbContext<Context>();
 
-            //pdf
-
             
+
+
 
 
 
@@ -92,7 +93,9 @@ namespace Apka2
 
 
 
-          
+
+
+            
 
 
             services.AddScoped<IUsersService, UsersService>();
