@@ -122,7 +122,7 @@ export class LawPageUser extends Component {
             >
               Szczegóły
             </Button>{" "}
-            <Button>
+            <Button color="light">
               <PDFDownloadLink
                 id={law.id}
                 document={<PDF id={law.id} />}

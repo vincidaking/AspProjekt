@@ -160,7 +160,7 @@ export class LawPage extends Component {
             >
               Usun
             </Button>
-            <Button>
+            <Button color="light">
               <PDFDownloadLink
                 id={law.id}
                 document={<PDF id={law.id} />}
