@@ -19,10 +19,16 @@ export const PrivateRoute = ({ component: Component, roles, ...rest }) => (
       }
       // decode(currentUser.token)[Jwt.Token]
       // check if route is restricted by role
+
       if (roles && roles.indexOf(currentUser.role) === -1) {
         // role not authorised so redirect to home page
         return <Redirect to={{ pathname: "/" }} />;
       }
+
+      // if (roles && roles.indexOf(decode(currentUser.token)[Jwt.Token]) === -1) {
+      // role not authorised so redirect to home page
+      // return <Redirect to={{ pathname: '/'}} />
+      // }
 
       // authorised so return component
       return <Component {...props} />;

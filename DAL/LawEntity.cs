@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Apka2.Data;
 using Apka2.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace Apka2.DAL
 {
 
-    public class LawEntity:ILaw, IDisposable
+    public class LawEntity: ILaw, IDisposable
     {
         private Context _context = new Context();
 

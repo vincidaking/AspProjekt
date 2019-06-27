@@ -12,11 +12,6 @@ namespace Apka2.Data
         public DbSet<Law> Laws { get; set; }
         public DbSet<Model.Vote> Votes { get; set; }
 
-        
-        
-
-        
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;initial catalog=ApkaDP;Integrated Security=true");
@@ -37,23 +32,18 @@ namespace Apka2.Data
             });
 
 
-            //modelBuilder.Entity<VoteType>().HasData(
-            //    new VoteType() { Id = 1, Name = "Za" },
-            //    new VoteType() { Id = 2, Name = "Przeciw" },
-            //    new VoteType() { Id = 3, Name = "Wstrzymanie" }
-            //    );
-
-
-            //jeden do wielu
+            
 
 
             modelBuilder.Entity<Law>()
                    .HasMany(x => x.Votes)
-                   .WithOne(c => c.Law);
+                   .WithOne(c => c.Law)
+                 ;
 
             modelBuilder.Entity<Model.Vote>()
                 .HasOne(x => x.Law)
-                .WithMany(c => c.Votes);
+                .WithMany(c => c.Votes)
+                ;
 
 
 

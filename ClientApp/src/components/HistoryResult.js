@@ -1,27 +1,9 @@
 import React, { Component } from "react";
 import axios from "../helpers/axios.api";
-import {
-  Table,
-  Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  FormGroup,
-  Label
-} from "reactstrap";
 
-const Colors = Object.freeze({
-  0: Symbol("Zgadzam"),
-  1: Symbol("Nie zgadzam"),
-  2: Symbol("Wstrzymuje się")
-});
+import { MDBTable, MDBTableBody, MDBTableHead } from "mdbreact";
 
-const Color = {
-  RED: 0,
-  GREEN: 1,
-  BLUE: 2
-};
+import moment from "moment";
 
 export class HistoryResult extends Component {
   state = {
@@ -59,7 +41,7 @@ export class HistoryResult extends Component {
         <tr key={law.id}>
           <td>{law.name}</td>
           <td>{law.lawText}</td>
-          <td>{law.dateEnd}</td>
+          <td>{moment(law.dateEnd).format("MM/DD/YYYY")}</td>
           <td>{law.accept}</td>
           <td>{law.decline}</td>
           <td>{law.none}</td>
@@ -71,8 +53,8 @@ export class HistoryResult extends Component {
 
     return (
       <div className="App container">
-        <Table>
-          <thead>
+        <MDBTable striped>
+          <MDBTableHead>
             <tr>
               <th>Nazwa</th>
 
@@ -84,9 +66,9 @@ export class HistoryResult extends Component {
               <th>Wstrzymuje się</th>
               <th>Werdykt</th>
             </tr>
-          </thead>
-          <tbody>{laws}</tbody>
-        </Table>
+          </MDBTableHead>
+          <MDBTableBody>{laws}</MDBTableBody>
+        </MDBTable>
       </div>
     );
   }

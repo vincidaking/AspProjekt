@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import axios from "../helpers/axios.api";
 import {
-  Table,
   Button,
   Modal,
   ModalHeader,
@@ -14,8 +13,10 @@ import {
 import { authenticationService } from "../services/authentication.service";
 
 import { PDFDownloadLink } from "@react-pdf/renderer";
-
+import { MDBTable, MDBTableBody, MDBTableHead } from "mdbreact";
 import PDF from "../services/PDF";
+
+import moment from "moment";
 
 export class LawPageUser extends Component {
   constructor() {
@@ -97,8 +98,9 @@ export class LawPageUser extends Component {
         <tr key={law.id}>
           <td>{law.name}</td>
           {/* <td>{law.lawText}</td> */}
-          <td>{law.dateAdd}</td>
-          <td>{law.dateEnd}</td>
+          <td>{moment(law.dateAdd).format("MM/DD/YYYY")}</td>
+
+          <td>{moment(law.dateEnd).format("MM/DD/YYYY")}</td>
           <td>
             <Button
               className="my-3"
@@ -122,8 +124,8 @@ export class LawPageUser extends Component {
             </Button>{" "}
             <Button>
               <PDFDownloadLink
-                Id={law.id}
-                document={<PDF Id={law.id} />}
+                id={law.id}
+                document={<PDF id={law.id} />}
                 fileName={law.name}
               >
                 {({ blob, url, loading, error }) =>
@@ -186,8 +188,16 @@ export class LawPageUser extends Component {
             Treść: <text>{this.state.LawsData.lawText}</text>
             <div />
             <div>
-              Data Dodania:<div> {this.state.LawsData.dateAdd}</div>
-              Data Konca:<div> {this.state.LawsData.dateEnd}</div>
+              Data Dodania:
+              <div>
+                {" "}
+                {moment(this.state.LawsData.dateAdd).format("MM/DD/YYYY LTS")}
+              </div>
+              Data Konca:
+              <div>
+                {" "}
+                {moment(this.state.LawsData.dateEnd).format("MM/DD/YYYY LTS")}
+              </div>
             </div>
           </ModalBody>
           <ModalFooter>
@@ -197,8 +207,8 @@ export class LawPageUser extends Component {
           </ModalFooter>
         </Modal>
 
-        <Table>
-          <thead>
+        <MDBTable striped>
+          <MDBTableHead>
             <tr>
               <th>Nazwa</th>
 
@@ -207,9 +217,9 @@ export class LawPageUser extends Component {
               <th>Data Konca</th>
               <th>Akcja</th>
             </tr>
-          </thead>
-          <tbody>{laws}</tbody>
-        </Table>
+          </MDBTableHead>
+          <MDBTableBody>{laws}</MDBTableBody>
+        </MDBTable>
       </div>
     );
   }

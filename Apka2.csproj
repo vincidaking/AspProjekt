@@ -27,8 +27,12 @@
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Compile Remove="PDFNative\**" />
     <Content Remove="$(SpaRoot)**" />
+    <Content Remove="PDFNative\**" />
+    <EmbeddedResource Remove="PDFNative\**" />
     <None Remove="$(SpaRoot)**" />
+    <None Remove="PDFNative\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
@@ -39,10 +43,6 @@
     <Compile Remove="Migrations\20190621182542_Vote_MenyToMEny_v4.Designer.cs" />
     <Compile Remove="Migrations\20190625074845_remove_token_user.cs" />
     <Compile Remove="Migrations\20190625074845_remove_token_user.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="PDFNative\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

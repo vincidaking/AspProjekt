@@ -17,9 +17,9 @@ export class LoginPage extends React.Component {
   render() {
     return (
       <div>
-        <div className="alert alert-info">
+        {/* <div className="alert alert-info">
           <strong>Administrator</strong> - U: admin@admin.pl P: admin
-        </div>
+        </div> */}
         <h2>Logowanie</h2>
         <Formik
           initialValues={{

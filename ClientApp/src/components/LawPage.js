@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import axios from "../helpers/axios.api";
 import {
-  Table,
   Button,
   Modal,
   ModalHeader,
@@ -12,8 +11,11 @@ import {
   Label
 } from "reactstrap";
 
-import * as Yup from "yup";
-import { Formik, Field, Form, ErrorMessage } from "formik";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import PDF from "../services/PDF";
+import moment from "moment";
+
+import { MDBTable, MDBTableBody, MDBTableHead } from "mdbreact";
 
 export class LawPage extends Component {
   constructor() {
@@ -133,8 +135,8 @@ export class LawPage extends Component {
         <tr key={law.id}>
           <td>{law.name}</td>
           <td>{law.lawText}</td>
-          <td>{law.dateAdd}</td>
-          <td>{law.dateEnd}</td>
+          <td>{moment(law.dateAdd).format("MM/DD/YYYY")}</td>
+          <td>{moment(law.dateEnd).format("MM/DD/YYYY")}</td>
           <td>
             <Button
               color="success"
@@ -157,6 +159,17 @@ export class LawPage extends Component {
               onClick={this.deleteLaw.bind(this, law.id)}
             >
               Usun
+            </Button>
+            <Button>
+              <PDFDownloadLink
+                id={law.id}
+                document={<PDF id={law.id} />}
+                fileName={law.name}
+              >
+                {({ blob, url, loading, error }) =>
+                  loading ? "Loading document..." : "PDF"
+                }
+              </PDFDownloadLink>
             </Button>
           </td>
         </tr>
@@ -250,7 +263,6 @@ export class LawPage extends Component {
             </Button>
           </ModalFooter>
         </Modal>
-
         <Modal isOpen={this.state.editLawsModel}>
           <ModalHeader>Edytowanie Uchwały</ModalHeader>
           <ModalBody>
@@ -315,9 +327,8 @@ export class LawPage extends Component {
             </Button>
           </ModalFooter>
         </Modal>
-
-        <Table responsive>
-          <thead>
+        <MDBTable striped>
+          <MDBTableHead color="primary-color">
             <tr>
               <th>Nazwa</th>
 
@@ -326,9 +337,9 @@ export class LawPage extends Component {
               <th>Data Konca</th>
               <th>Akcja</th>
             </tr>
-          </thead>
-          <tbody>{laws}</tbody>
-        </Table>
+          </MDBTableHead>
+          <MDBTableBody>{laws}</MDBTableBody>
+        </MDBTable>
       </div>
     );
   }

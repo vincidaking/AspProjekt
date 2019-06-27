@@ -38,7 +38,7 @@ namespace Apka2.Controllers
         public async Task<ActionResult<IEnumerable<Law>>> GetLaws()
         {
 
-            return await _context.Laws.ToListAsync();
+            return await _context.Laws.OrderBy(x=>x.DateAdd).ToListAsync();
         }
 
         // GET: api/Laws/5
@@ -81,10 +81,12 @@ namespace Apka2.Controllers
         }
 
         // POST: api/Laws
-        [Authorize(Roles = RoleNames.Admin)]
+        [Authorize(Roles = RoleNames.Admin )]
         [HttpPost]
         public async Task<ActionResult<Law>> PostLaw(Law law)
         {
+
+            
             if (law.DateEnd < DateTime.Today)
                 return BadRequest("Data zakonczenia musi być pózniejsza");
 

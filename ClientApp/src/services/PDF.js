@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import source from "../helpers/Fonts/Calibri/calibri.ttf";
 
 import api from "../helpers/axios.api";
+import moment from "moment";
 
 import {
   Page,
@@ -112,7 +113,8 @@ export class PDF extends Component {
   }
 
   componentDidMount() {
-    api.get("api/Laws/" + this.props.Id).then(res => {
+    console.log("Drukuj ID propki: ", this.props.id);
+    api.get("api/Laws/" + this.props.id).then(res => {
       const law = res.data;
       this.setState({
         law: res.data
@@ -126,9 +128,9 @@ export class PDF extends Component {
       <Document>
         <Page size="A4" style={styles.page}>
           <View style={styles.header}>
-            <Text style={styles.header}>KARTA DO GŁOSOWANIA NAD UCHWAŁAMI</Text>
+            <Text style={styles.header}>KARTA DO GLOSOWANIA NAD UCHWALAMI</Text>
             <Text style={styles.headerlow}>
-              Z dnia: {this.state.law.dateAdd}
+              Z dnia: {moment(this.state.law.dateAdd).format("MM/DD/YYYY")}
             </Text>
 
             <Text style={styles.textName}>
@@ -152,7 +154,7 @@ export class PDF extends Component {
                 <Text style={styles.tableCell}>Przeciw</Text>
               </View>
               <View style={styles.tableCol}>
-                <Text style={styles.tableCell}>Wstrzymał sie</Text>
+                <Text style={styles.tableCell}>Wstrzymal sie</Text>
               </View>
               <View style={styles.tableCol}>
                 <Text style={styles.tableCell}>Data</Text>
@@ -175,7 +177,7 @@ export class PDF extends Component {
           </View>
 
           <View>
-            <Text style={styles.signup}>Podpis Własciciela</Text>
+            <Text style={styles.signup}>Podpis Wlasciciela</Text>
           </View>
         </Page>
       </Document>

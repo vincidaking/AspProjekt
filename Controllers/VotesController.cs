@@ -27,7 +27,8 @@ namespace Apka2.Controllers
         [HttpPost]
         public async Task<ActionResult<VoteFromReact>> PostVoteFromReact(VoteFromReact voteFromReact)
         {
-            
+            if (!Enum.IsDefined(typeof(VoteType), voteFromReact.voteTypeId)) return BadRequest("Nie prawidlowa wartosc ENUMA") ;
+                
 
             var lawOriginal = _context.Laws.FirstOrDefault(x => x.Id == voteFromReact.id);
             if (lawOriginal == null)
@@ -100,7 +101,7 @@ namespace Apka2.Controllers
            
 
          
-            return listResult.ToList();
+            return listResult.OrderBy(x=>x.DateEnd).ToList();
         }
 
         [HttpGet("withoutOptionVote/{username}")]

@@ -1,18 +1,19 @@
 import React, { Component } from "react";
 
-import {
-  Table,
-  Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  FormGroup,
-  Input,
-  Label
-} from "reactstrap";
+import { FormGroup, Input, Label } from "reactstrap";
 
 import axios from "../helpers/axios.api";
+
+import {
+  MDBTable,
+  MDBTableBody,
+  MDBTableHead,
+  MDBBtn,
+  MDBModal,
+  MDBModalBody,
+  MDBModalHeader,
+  MDBModalFooter
+} from "mdbreact";
 
 export class UserPage extends Component {
   constructor() {
@@ -113,7 +114,7 @@ export class UserPage extends Component {
           <td>{user.lastName}</td>
           <td>{user.username}</td>
           <td>
-            <Button
+            <MDBBtn
               color="success"
               size="sm"
               className="mr-2"
@@ -127,23 +128,23 @@ export class UserPage extends Component {
               )}
             >
               Edytuj
-            </Button>{" "}
-            <Button
+            </MDBBtn>{" "}
+            <MDBBtn
               color="danger"
               size="sm"
               onClick={this.deleteUser.bind(this, user.id)}
             >
               Usun
-            </Button>
+            </MDBBtn>
           </td>
         </tr>
       );
     });
     return (
       <div className="App container">
-        <Modal isOpen={this.state.editUserModel}>
-          <ModalHeader>Edytowanie Uzytkownika</ModalHeader>
-          <ModalBody>
+        <MDBModal isOpen={this.state.editUserModel} fullHeight position="right">
+          <MDBModalHeader>Edytowanie Uzytkownika</MDBModalHeader>
+          <MDBModalBody>
             <FormGroup>
               <Label for="firstName">Imie</Label>
               <Input
@@ -193,28 +194,28 @@ export class UserPage extends Component {
                 }}
               />
             </FormGroup>
-          </ModalBody>
-          <ModalFooter>
-            <Button color="primary" onClick={this.updateUser.bind(this)}>
+          </MDBModalBody>
+          <MDBModalFooter>
+            <MDBBtn color="primary" onClick={this.updateUser.bind(this)}>
               Zapisz
-            </Button>{" "}
-            <Button color="secondary" onClick={this.toggleEditUserModel}>
+            </MDBBtn>{" "}
+            <MDBBtn color="secondary" onClick={this.toggleEditUserModel}>
               Cancel
-            </Button>
-          </ModalFooter>
-        </Modal>
+            </MDBBtn>
+          </MDBModalFooter>
+        </MDBModal>
 
-        <Table>
-          <thead>
+        <MDBTable striped>
+          <MDBTableHead>
             <tr>
               <th>Imie</th>
               <th>Nazwisko</th>
               <th>Login</th>
               <th>Akcja</th>
             </tr>
-          </thead>
-          <tbody>{users}</tbody>
-        </Table>
+          </MDBTableHead>
+          <MDBTableBody>{users}</MDBTableBody>
+        </MDBTable>
       </div>
     );
   }

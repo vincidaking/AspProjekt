@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import axios from "../helpers/axios.api";
-import { Table } from "reactstrap";
+
+import moment from "moment";
 
 import { authenticationService } from "../services/authentication.service";
-
+import { MDBTable, MDBTableBody, MDBTableHead } from "mdbreact";
 export class LawPageUserVotedLaws extends Component {
   state = {
     laws: []
@@ -43,8 +44,8 @@ export class LawPageUserVotedLaws extends Component {
         <tr key={law.id}>
           <td>{law.name}</td>
           <td>{law.lawText}</td>
-          <td>{law.dateAdd}</td>
-          <td>{law.dateEnd}</td>
+          <td>{moment(law.dateAdd).format("MM/DD/YYYY")}</td>
+          <td>{moment(law.dateEnd).format("MM/DD/YYYY")}</td>
           <td>{this.renderSwitch(law.voteType)}</td>
         </tr>
       );
@@ -52,8 +53,8 @@ export class LawPageUserVotedLaws extends Component {
 
     return (
       <div className="App container">
-        <Table>
-          <thead>
+        <MDBTable striped>
+          <MDBTableHead>
             <tr>
               <th>Nazwa</th>
 
@@ -62,9 +63,9 @@ export class LawPageUserVotedLaws extends Component {
               <th>Data Konca</th>
               <th>Głos</th>
             </tr>
-          </thead>
-          <tbody>{laws}</tbody>
-        </Table>
+          </MDBTableHead>
+          <MDBTableBody>{laws}</MDBTableBody>
+        </MDBTable>
       </div>
     );
   }
